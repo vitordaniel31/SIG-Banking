@@ -55,7 +55,7 @@ void telaSobre(void) {
     printf("///  didáticos. O programa contém os principais módulos e funcionalidades   ///\n");
     printf("///  de um banco: cadastro de clientes, consulta de saldo, extrato, cartões,///\n");
     printf("///  empréstimos e a parte administrativa para controle da instituição      ///\n");
-    printf("///  bancária..                                                             ///\n");
+    printf("///  bancária.                                                              ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
