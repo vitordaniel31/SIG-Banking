@@ -8,6 +8,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 #include <stdio.h>
+#include <stdlib.h>
 
 /////
 // Assinatura das funções
@@ -22,21 +23,51 @@ void telaCliente(void);
 int main(void) {
     //Execução
     telaPrincipal();
-    
-    int escolha;
-    printf("Digite o número referente ao módulo que deseja acessar: ");
-    scanf("%d", &escolha);
-    if(escolha==1) telaCliente();
-    else if(escolha==2) telaAdministrador(); 
-    else if(escolha==3) telaSobre();
-    else if(escolha==4) telaEquipe();   
-    else return 0;
+    return 0;
 }
 
 /////
 // Funções
+void telaPrincipal(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///               Projeto Sistema de Controle de Contas Bancárias           ///\n");
+    printf("///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Módulo do Administrador                                   ///\n");
+    printf("///            2. Módulo do Cliente                                         ///\n");
+    printf("///            3. Módulo do Relatórios                                      ///\n");
+    printf("///            4. Sobre o sistema                                           ///\n");
+    printf("///            5. Equipe de Desenvolvedores                                 ///\n");
+    printf("///            0. Encerrar                                                  ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+
+    int escolha;
+    printf("Digite o número referente ao módulo que deseja acessar: ");
+    scanf("%d", &escolha);
+
+    if(escolha==1) telaAdministrador();
+    else if(escolha==2) telaCliente();
+    else if(escolha==3) telaRelatorios(); 
+    else if(escolha==4) telaSobre();
+    else if(escolha==5) telaEquipe();  
+    else exit(0);
+}
 
 void telaSobre(void) {
+    system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -62,36 +93,8 @@ void telaSobre(void) {
     
 }
 
-
-
-void telaPrincipal(void) {
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
-    printf("///               Departamento de Computação e Tecnologia                   ///\n");
-    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
-    printf("///               Projeto Sistema de Controle de Contas Bancárias           ///\n");
-    printf("///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
-    printf("///                                                                         ///\n");
-    printf("///            1. Módulo do Administrador                                   ///\n");
-    printf("///            2. Módulo do Cliente                                         ///\n");
-    printf("///            3. Sobre o sistema                                           ///\n");
-    printf("///            4. Equipe de Desenvolvedores                                 ///\n");
-    printf("///            0. Encerrar                                                  ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-}
-
-
-
 void telaEquipe(void) {
+    system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -118,6 +121,7 @@ void telaEquipe(void) {
 }
 
 void telaAdministrador(void) {
+    system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -132,8 +136,8 @@ void telaAdministrador(void) {
     printf("///                                                                         ///\n");
     printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Módulo do Administrador                                   ///\n");
-    printf("///            2. Módulo do Cliente                                         ///\n");
+    printf("///            1. Clientes                                                  ///\n");
+    printf("///            2. Transações                                                ///\n");
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -141,6 +145,7 @@ void telaAdministrador(void) {
 }
 
 void telaCliente(void) {
+    system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -155,8 +160,34 @@ void telaCliente(void) {
     printf("///                                                                         ///\n");
     printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Módulo do Administrador                                   ///\n");
-    printf("///            2. Módulo do Cliente                                         ///\n");
+    printf("///            1. Meu Extrato                                               ///\n");
+    printf("///            2. Meus Comprovantes                                         ///\n");
+    printf("///            3. Pagar Contas                                              ///\n");
+    printf("///            4. Fazer Transferência                                       ///\n");
+    printf("///            5. Solicitar Empréstimo                                      ///\n");
+    printf("///            0. Sair                                                      ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+}
+
+void telaRelatorios(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///               Projeto Sistema de Controle de Contas Bancárias           ///\n");
+    printf("///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Logs do Sistema                                           ///\n");
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
