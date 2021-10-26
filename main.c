@@ -17,6 +17,7 @@ void telaPrincipal(void);
 void telaEquipe(void);
 void telaAdministrador(void);
 void telaCliente(void);
+void telaRelatorios(void);
 
 /////
 // Programa principal
