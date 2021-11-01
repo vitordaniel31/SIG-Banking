@@ -19,6 +19,7 @@ void telaAdministrador(void);
 void telaAdministradorClientes(void);
 void telaAdministradorCadastroCliente(void);
 void telaAdministradorPesquisaCliente(void);
+void telaAdministradorAtualizaCliente(void);
 void telaAdministradorTransacoes(void);
 void telaCliente(void);
 void telaRelatorios(void);
@@ -34,6 +35,7 @@ int main(void) {
     telaAdministradorClientes();
     telaAdministradorCadastroCliente();
     telaAdministradorPesquisaCliente();
+    telaAdministradorAtualizaCliente();
     telaAdministradorTransacoes();
     telaCliente();
     telaRelatorios();
@@ -228,7 +230,6 @@ void telaAdministradorCadastroCliente(void) {
     printf("///           CEP:                                                          ///\n");
     printf("///           Complemento:                                                  ///\n");
     printf("///                                                                         ///\n");
-    printf("///           Escolha a opção desejada:                                     ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
@@ -236,7 +237,7 @@ void telaAdministradorCadastroCliente(void) {
     getchar();
 }
 
-void telaAdministradorPesquisarCliente(void) {
+void telaAdministradorPesquisaCliente(void) {
     //system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -261,6 +262,43 @@ void telaAdministradorPesquisarCliente(void) {
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
+
+void telaAdministradorAtualizaCliente(void) {
+    //system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///               Projeto Sistema de Controle de Contas Bancárias           ///\n");
+    printf("///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = = = = = Atualização de Dados do Cliente = = = = = = =       ///\n");
+    printf("///           Informe o CPF (apenas números):                               ///\n");
+    printf("///       = = = = = = = = Novos Dados do Cliente = = = = = = = = = = =      ///\n");
+    printf("///           Nome completo:                                                ///\n");
+    printf("///           E-mail:                                                       ///\n");
+    printf("///           Data de Nascimento (dd/mm/aaaa):                              ///\n");
+    printf("///           Celular  (apenas números):                                    ///\n");
+    printf("///           Cidade:                                                       ///\n");
+    printf("///           Logradouro / Número:                                          ///\n");
+    printf("///           Bairro:                                                       ///\n");
+    printf("///           CEP:                                                          ///\n");
+    printf("///           Complemento:                                                  ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
 
 void telaAdministradorTransacoes(void) {
     //system("clear||cls");
