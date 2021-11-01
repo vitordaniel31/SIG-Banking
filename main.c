@@ -17,6 +17,8 @@ void telaPrincipal(void);
 void telaEquipe(void);
 void telaAdministrador(void);
 void telaAdministradorClientes(void);
+void telaAdministradorCadastroCliente(void);
+void telaAdministradorPesquisaCliente(void);
 void telaAdministradorTransacoes(void);
 void telaCliente(void);
 void telaRelatorios(void);
@@ -30,6 +32,8 @@ int main(void) {
     telaEquipe();
     telaAdministrador();
     telaAdministradorClientes();
+    telaAdministradorCadastroCliente();
+    telaAdministradorPesquisaCliente();
     telaAdministradorTransacoes();
     telaCliente();
     telaRelatorios();
