@@ -37,15 +37,16 @@ int main(void) {
     telaAdministradorPesquisaCliente();
     telaAdministradorAtualizaCliente();
     telaAdministradorTransacoes();
-    telaCliente();
-    telaRelatorios();
+    //telaCliente();
+    //telaRelatorios();  
     return 0;
 }
 
 /////
 // Funções
 void telaPrincipal(void) {
-    //system("clear||cls");
+    system("clear||cls");
+    char escolha;
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -67,25 +68,15 @@ void telaPrincipal(void) {
     printf("///            5. Equipe de Desenvolvedores                                 ///\n");
     printf("///            0. Encerrar                                                  ///\n");
     printf("///                                                                         ///\n");
+    printf("///            Escolha a opção desejada: ");                                
+    scanf("%c", &escolha);
+    getchar();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-
-    /*int escolha;
-    printf("Digite o número referente ao módulo que deseja acessar: ");
-    scanf("%d", &escolha);
-
-    if(escolha==1) telaAdministrador();
-    else if(escolha==2) telaCliente();
-    else if(escolha==3) telaRelatorios(); 
-    else if(escolha==4) telaSobre();
-    else if(escolha==5) telaEquipe();  
-    else exit(0);*/
 }
 
 void telaSobre(void) {
-    //system("clear||cls");
+    system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -114,7 +105,7 @@ void telaSobre(void) {
 }
 
 void telaEquipe(void) {
-    //system("clear||cls");
+    system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -144,7 +135,8 @@ void telaEquipe(void) {
 
 //telas do módulo 1-Administrador
 void telaAdministrador(void) {
-    //system("clear||cls");
+    system("clear||cls");
+    char escolha;
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -166,7 +158,9 @@ void telaAdministrador(void) {
     printf("///            5. Transações                                                ///\n");
     printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
-    printf("///           Escolha a opção desejada:                                     ///\n");
+    printf("///            Escolha a opção desejada: ");                                
+    scanf("%c", &escolha);
+    getchar();
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
@@ -175,7 +169,7 @@ void telaAdministrador(void) {
 }
 
 void telaAdministradorClientes(void) {
-    //system("clear||cls");
+    system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -203,7 +197,18 @@ void telaAdministradorClientes(void) {
 }
 
 void telaAdministradorCadastroCliente(void) {
-    //system("clear||cls");
+    system("clear||cls");
+    char nome[100];
+    char cpf[11];
+    char email[100];
+    char dtnasc[11];
+    char celular[12];
+    char cidade[100];
+    char logradouro[100];
+    char bairro[100];
+    char cep[8];
+    char complemento[100];
+
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -219,16 +224,36 @@ void telaAdministradorCadastroCliente(void) {
     printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
     printf("///                                                                         ///\n");
     printf("///       = = = = = = = = = = Cadastro de Cliente = = = = = = = = = =       ///\n");
-    printf("///           Nome completo:                                                ///\n");
-    printf("///           CPF (apenas números):                                         ///\n");
-    printf("///           E-mail:                                                       ///\n");
-    printf("///           Data de Nascimento (dd/mm/aaaa):                              ///\n");
-    printf("///           Celular  (apenas números):                                    ///\n");
-    printf("///           Cidade:                                                       ///\n");
-    printf("///           Logradouro / Número:                                          ///\n");
-    printf("///           Bairro:                                                       ///\n");
-    printf("///           CEP:                                                          ///\n");
-    printf("///           Complemento:                                                  ///\n");
+    printf("///           Nome completo: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nome);
+    getchar();
+    printf("///           CPF (apenas números): ");
+    scanf("%[0-9]", cpf );
+    getchar();
+    printf("///           E-mail: ");
+    scanf("%[A-Za-z0-9@._]", email);
+    getchar();
+    printf("///           Data de Nascimento (dd/mm/aaaa): ");
+    scanf("%[0-9/]", dtnasc);
+    getchar();
+    printf("///           Celular  (apenas números): ");
+    scanf("%[0-9]", celular);
+    getchar();
+    printf("///           Cidade: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", cidade);
+    getchar();
+    printf("///           Logradouro / Número: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ 0-9 .-]", logradouro);
+    getchar();
+    printf("///           Bairro: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", bairro);
+    getchar();
+    printf("///           CEP (apenas números): ");
+    scanf("%[0-9]", cep );
+    getchar();
+    printf("///           Complemento: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", complemento);
+    getchar();
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -238,7 +263,8 @@ void telaAdministradorCadastroCliente(void) {
 }
 
 void telaAdministradorPesquisaCliente(void) {
-    //system("clear||cls");
+    system("clear||cls");
+    char cpf[11];
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -255,7 +281,9 @@ void telaAdministradorPesquisaCliente(void) {
     printf("///                                                                         ///\n");
     printf("///       = = = = = = = = = = Pesquisa de Cliente = = = = = = = = = =       ///\n");
     printf("///                                                                         ///\n");
-    printf("///           Informe o CPF (apenas números) do cliente:                    ///\n");
+    printf("///           Informe o CPF (apenas números) do cliente: ");
+    scanf("%[0-9]", cpf );
+    getchar();
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
@@ -264,7 +292,8 @@ void telaAdministradorPesquisaCliente(void) {
 }
 
 void telaAdministradorAtualizaCliente(void) {
-    //system("clear||cls");
+    system("clear||cls");
+    char cpf[11];
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -279,19 +308,11 @@ void telaAdministradorAtualizaCliente(void) {
     printf("///                                                                         ///\n");
     printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
     printf("///                                                                         ///\n");
-    printf("///       = = = = = = = Atualização de Dados do Cliente = = = = = = =       ///\n");
-    printf("///           Informe o CPF (apenas números):                               ///\n");
-    printf("///       = = = = = = = = Novos Dados do Cliente = = = = = = = = = = =      ///\n");
-    printf("///           Nome completo:                                                ///\n");
-    printf("///           E-mail:                                                       ///\n");
-    printf("///           Data de Nascimento (dd/mm/aaaa):                              ///\n");
-    printf("///           Celular  (apenas números):                                    ///\n");
-    printf("///           Cidade:                                                       ///\n");
-    printf("///           Logradouro / Número:                                          ///\n");
-    printf("///           Bairro:                                                       ///\n");
-    printf("///           CEP:                                                          ///\n");
-    printf("///           Complemento:                                                  ///\n");
+    printf("///       = = = = = = = =  Atualização de Cliente = = = = = = = = = =       ///\n");
     printf("///                                                                         ///\n");
+    printf("///           Informe o CPF (apenas números) do cliente: ");
+    scanf("%[0-9]", cpf );
+    getchar();
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
@@ -300,8 +321,9 @@ void telaAdministradorAtualizaCliente(void) {
 }
 
 
+
 void telaAdministradorTransacoes(void) {
-    //system("clear||cls");
+    system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
