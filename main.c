@@ -22,6 +22,9 @@ void telaAdministradorPesquisaCliente(void);
 void telaAdministradorAtualizaCliente(void);
 void telaAdministradorTransacoes(void);
 void telaCliente(void);
+void telaClienteExtrato(void);
+void telaClienteComprovantes(void);
+void telaClientePagar(void);
 void telaRelatorios(void);
 
 /////
@@ -37,7 +40,10 @@ int main(void) {
     telaAdministradorPesquisaCliente();
     telaAdministradorAtualizaCliente();
     telaAdministradorTransacoes();
-    //telaCliente();
+    telaCliente();
+    telaClienteExtrato();
+    telaClienteComprovantes();
+    telaClientePagar();
     //telaRelatorios();  
     return 0;
 }
@@ -339,6 +345,7 @@ void telaAdministradorTransacoes(void) {
     printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
     printf("///                                                                         ///\n");
     printf("///                            LISTA DE TRANSAÇÕES                          ///\n");
+    printf("///                                                                         ///\n");
     printf("///            1. Saque - Vitor Daniel Lócio Medeiros - R$1000,00           ///\n");
     printf("///            2. Depósito - Maria José Lócio Linhares Medeiros - R$500,00  ///\n");
     printf("///            3. Solicitação de Empréstimo - Jesca Gabrielly Medeiros      ///\n");
@@ -352,8 +359,10 @@ void telaAdministradorTransacoes(void) {
 
 //fim das telas do módulo 1-Administrador
 
+// telas do módulo 2-Cliente
 void telaCliente(void) {
-    //system("clear||cls");
+    system("clear||cls");
+    char escolha;
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -375,11 +384,106 @@ void telaCliente(void) {
     printf("///            5. Solicitar Empréstimo                                      ///\n");
     printf("///            0. Sair                                                      ///\n");
     printf("///                                                                         ///\n");
+    printf("///            Escolha a opção desejada: ");                                
+    scanf("%c", &escolha);
+    getchar();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
+
+void telaClienteExtrato(void) {
+    system("clear||cls");
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///               Projeto Sistema de Controle de Contas Bancárias           ///\n");
+    printf("///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                 MEU EXTRATO                             ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            Saque == (- R$1000,00)                         10/11/2021    ///\n");
+    printf("///            Depósito == (+ R$500,00)                       12/11/2021    ///\n");
+    printf("///            Transferência == (- R$300,00)                  14/11/2021    ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            SALDO ATUAL = R$3500,00                        15/11/2021    ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void telaClienteComprovantes(void) {
+    system("clear||cls");
+    char comprovante[1];
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///               Projeto Sistema de Controle de Contas Bancárias           ///\n");
+    printf("///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                            LISTA DE COMPROVANTES                        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            1. Saque - Vitor Daniel Lócio Medeiros - R$1000,00           ///\n");
+    printf("///            2. Depósito - Maria José Lócio Linhares Medeiros - R$500,00  ///\n");
+    printf("///            3. Transferência - Jesca Gabrielly Medeiros - R$500,00       ///\n");
+    printf("///                                                                         ///\n");
+    printf("///      Informe o número da transação que deseja emitir comprovante: ");
+    scanf("%[0-9]", comprovante );
+    getchar();
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void telaClientePagar(void) {
+    system("clear||cls");
+    char comprovante[100];
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///               Projeto Sistema de Controle de Contas Bancárias           ///\n");
+    printf("///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                            PAGAMENTO DE BOLETO                          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///      Digite o código de barras do boleto: (apenas números)");
+    scanf("%[0-9]", comprovante );
+    getchar();
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+//fim das telas do módulo 2-Cliente
 
 void telaRelatorios(void) {
     //system("clear||cls");
