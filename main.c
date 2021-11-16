@@ -25,6 +25,8 @@ void telaCliente(void);
 void telaClienteExtrato(void);
 void telaClienteComprovantes(void);
 void telaClientePagar(void);
+void telaClienteTransferencia(void);
+void telaClienteEmprestimo(void);
 void telaRelatorios(void);
 
 /////
@@ -44,7 +46,9 @@ int main(void) {
     telaClienteExtrato();
     telaClienteComprovantes();
     telaClientePagar();
-    //telaRelatorios();  
+    telaClienteTransferencia();
+    telaClienteEmprestimo();
+    telaRelatorios();  
     return 0;
 }
 
@@ -456,7 +460,7 @@ void telaClienteComprovantes(void) {
 
 void telaClientePagar(void) {
     system("clear||cls");
-    char comprovante[100];
+    char codigo[100];
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -473,9 +477,88 @@ void telaClientePagar(void) {
     printf("///                                                                         ///\n");
     printf("///                            PAGAMENTO DE BOLETO                          ///\n");
     printf("///                                                                         ///\n");
-    printf("///                                                                         ///\n");
     printf("///      Digite o código de barras do boleto: (apenas números)");
-    scanf("%[0-9]", comprovante );
+    scanf("%[0-9]", codigo );
+    getchar();
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void telaClienteTransferencia(void) {
+    system("clear||cls");
+    char nome[100];
+    char cpf[11];
+    char agencia[5];
+    char conta[20];
+    char tipo[1];
+    
+
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///               Projeto Sistema de Controle de Contas Bancárias           ///\n");
+    printf("///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                             TRANSFERÊNCIA BANCÁRIA                      ///\n");
+    printf("///                                                                         ///\n");
+    printf("///           Nome completo: ");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nome);
+    getchar();
+    printf("///           CPF (apenas números): ");
+    scanf("%[0-9]", cpf );
+    getchar();
+    printf("///           Agência (apenas números): ");
+    scanf("%[0-9]", agencia );
+    getchar();
+    printf("///           Conta (apenas números): ");
+    scanf("%[0-9]", conta );
+    getchar();
+    printf("///           Tipo da Conta (1-Corrente, 2-Poupança): ");
+    scanf("%[0-9]", tipo );
+    getchar();
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+void telaClienteEmprestimo(void) {
+    system("clear||cls");
+    char valor[100];
+    char motivo[255];
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///               Projeto Sistema de Controle de Contas Bancárias           ///\n");
+    printf("///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
+    printf("///                                                                         ///\n");
+    printf("///                            PAGAMENTO DE BOLETO                          ///\n");
+    printf("///                                                                         ///\n");
+    printf("///      Digite o valor do empréstimo: (apenas números)");
+    scanf("%[0-9]", valor );
+    getchar();
+    printf("///      Diga o motivo da solicitação:");
+    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", motivo);
     getchar();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
@@ -485,8 +568,10 @@ void telaClientePagar(void) {
 
 //fim das telas do módulo 2-Cliente
 
+
+//modulo 3 - todos os acontecimentos do banco
 void telaRelatorios(void) {
-    //system("clear||cls");
+    system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
