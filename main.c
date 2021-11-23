@@ -13,48 +13,53 @@
 /////
 // Assinatura das funções
 void telaSobre(void);
-void telaPrincipal(void);
+char telaPrincipal(void);
 void telaEquipe(void);
-void telaAdministrador(void);
+void moduloAdministrador(void);
+char telaAdministrador(void);
 void telaAdministradorClientes(void);
 void telaAdministradorCadastroCliente(void);
 void telaAdministradorPesquisaCliente(void);
 void telaAdministradorAtualizaCliente(void);
 void telaAdministradorTransacoes(void);
-void telaCliente(void);
+void moduloCliente(void);
+char telaCliente(void);
 void telaClienteExtrato(void);
 void telaClienteComprovantes(void);
 void telaClientePagar(void);
 void telaClienteTransferencia(void);
 void telaClienteEmprestimo(void);
-void telaRelatorios(void);
+void moduloRelatorios(void);
+char telaRelatorios(void);
 
 /////
 // Programa principal
 int main(void) {
+    //código tirado do github: https://github.com/flgorgonio/linguasolta/blob/main/linguasolta.c
+    char opcao; 
     //Execução
-    telaPrincipal();
-    telaSobre();
-    telaEquipe();
-    telaAdministrador();
-    telaAdministradorClientes();
-    telaAdministradorCadastroCliente();
-    telaAdministradorPesquisaCliente();
-    telaAdministradorAtualizaCliente();
-    telaAdministradorTransacoes();
-    telaCliente();
-    telaClienteExtrato();
-    telaClienteComprovantes();
-    telaClientePagar();
-    telaClienteTransferencia();
-    telaClienteEmprestimo();
-    telaRelatorios();  
+    do{ //é executado pelo menos uma vez
+        opcao = telaPrincipal();
+        switch(opcao){
+            case '1':   moduloAdministrador();
+                        break;
+            case '2':   moduloCliente();
+                        break;
+            case '3':   moduloRelatorios();
+                        break;
+            case '4':   telaSobre();
+                        break;
+            case '5':   telaEquipe();
+                        break;
+        }
+    }while(opcao!='0');
+
     return 0;
 }
 
 /////
 // Funções
-void telaPrincipal(void) {
+char telaPrincipal(void) {
     system("clear||cls");
     char escolha;
     printf("\n");
@@ -83,6 +88,7 @@ void telaPrincipal(void) {
     getchar();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
+    return escolha;
 }
 
 void telaSobre(void) {
@@ -144,7 +150,27 @@ void telaEquipe(void) {
 }
 
 //telas do módulo 1-Administrador
-void telaAdministrador(void) {
+void moduloAdministrador(void) {
+    char opcao;
+    do {
+        opcao = telaAdministrador();
+        switch(opcao) {
+            case '1':   telaAdministradorClientes();
+                        break;
+            case '2':   telaAdministradorCadastroCliente();
+                        break;
+            case '3':   telaAdministradorPesquisaCliente();
+                        break;
+            case '4':   telaAdministradorAtualizaCliente();
+                        break;
+            case '5':   telaAdministradorTransacoes();
+                        break;
+
+        }       
+    } while (opcao != '0');
+}
+
+char telaAdministrador(void) {
     system("clear||cls");
     char escolha;
     printf("\n");
@@ -174,8 +200,7 @@ void telaAdministrador(void) {
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    return escolha;
 }
 
 void telaAdministradorClientes(void) {
@@ -364,7 +389,27 @@ void telaAdministradorTransacoes(void) {
 //fim das telas do módulo 1-Administrador
 
 // telas do módulo 2-Cliente
-void telaCliente(void) {
+void moduloCliente(void) {
+    char opcao;
+    do {
+        opcao = telaCliente();
+        switch(opcao) {
+            case '1':   telaClienteExtrato();
+                        break;
+            case '2':   telaClienteComprovantes();
+                        break;
+            case '3':   telaClientePagar();
+                        break;
+            case '4':   telaClienteTransferencia();
+                        break;
+            case '5':   telaClienteEmprestimo();
+                        break;
+
+        }       
+    } while (opcao != '0');
+}
+
+char telaCliente(void) {
     system("clear||cls");
     char escolha;
     printf("\n");
@@ -386,15 +431,14 @@ void telaCliente(void) {
     printf("///            3. Pagar Contas                                              ///\n");
     printf("///            4. Fazer Transferência                                       ///\n");
     printf("///            5. Solicitar Empréstimo                                      ///\n");
-    printf("///            0. Sair                                                      ///\n");
+    printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");                                
     scanf("%c", &escolha);
     getchar();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    return escolha;
 }
 
 void telaClienteExtrato(void) {
@@ -570,8 +614,15 @@ void telaClienteEmprestimo(void) {
 
 
 //modulo 3 - todos os acontecimentos do banco
-void telaRelatorios(void) {
+void moduloRelatorios(void) {
+    char opcao;
+    do {
+        opcao = telaRelatorios();
+    } while (opcao != '0');
+}
+char telaRelatorios(void) {
     system("clear||cls");
+    char escolha;
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -587,10 +638,12 @@ void telaRelatorios(void) {
     printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
     printf("///                                                                         ///\n");
     printf("///            1. Logs do Sistema                                           ///\n");
-    printf("///            0. Sair                                                      ///\n");
+    printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
+    printf("///            Escolha a opção desejada: ");                                
+    scanf("%c", &escolha);
+    getchar();
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
+    return escolha;
 }
