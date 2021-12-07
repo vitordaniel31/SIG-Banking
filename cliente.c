@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "cliente.h"
-
+#include "validators.h"
 
 ////// Funções do Módulo do Cliente
 void moduloCliente(void) {

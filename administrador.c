@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "administrador.h"
+#include "validators.h"
 
 ////// Funções do Módulo do Administrador
 void moduloAdministrador(void) {
@@ -63,6 +64,7 @@ char telaAdministrador(void) {
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
+    printf("%d", size("VITOR", 4));
     return escolha;
 }
 

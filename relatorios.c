@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "relatorios.h"
+#include "validators.h"
 
 
 ////// Funções do Módulo de Relatórios
