@@ -12,6 +12,6 @@ int integer(char[]);
 int letras(char[]);
 int cpfVerify(char[]);
 int date(int, int, int);
-int telefone(char[]);
+int cell(char[]);
 int emailVerify(char[]);
 int size(char[], int, int);

@@ -103,7 +103,7 @@ int emailVerify(char entrada[]){
     return 1;
 }
 
-int telefone(char entrada[]){
+int cell(char entrada[]){
     if(strlen(entrada)!=11) return 0; //verifica se tem 11 digitos
     if(integer(entrada)==0) return 0; //verifica se tem apenas numeros
 

@@ -101,8 +101,11 @@ void telaAdministradorCadastroCliente(void) {
     char nome[100];
     char cpf[11];
     char email[100];
-    char dtnasc[11];
+    int dia = 0;
+    int mes = 0;
+    int ano = 0;
     char celular[12];
+    char estado[100];
     char cidade[100];
     char logradouro[100];
     char bairro[100];
@@ -139,27 +142,46 @@ void telaAdministradorCadastroCliente(void) {
         scanf("%s", email);
         getchar();
     }while(emailVerify(email)==0 || size(email, 100, 1)==0);
-    printf("///           Data de Nascimento (dd/mm/aaaa): ");
-    scanf("%s", dtnasc);
-    getchar();
-    printf("///           Celular  (apenas números): ");
-    scanf("%s", celular);
-    getchar();
-    printf("///           Cidade: ");
-    scanf("%s", cidade);
-    getchar();
-    printf("///           Logradouro / Número: ");
-    scanf("%s", logradouro);
-    getchar();
-    printf("///           Bairro: ");
-    scanf("%s", bairro);
-    getchar();
-    printf("///           CEP (apenas números): ");
-    scanf("%s", cep );
-    getchar();
-    printf("///           Complemento: ");
-    scanf("%s", complemento);
-    getchar();
+    do{
+        printf("///           Data de Nascimento (dd mm aaaa): ");
+        scanf("%d %d %d", &dia, &mes, &ano);
+        getchar();
+    }while(date(dia, mes, ano)==0);
+    do{
+        printf("///           Celular  (apenas números): ");
+        scanf("%s", celular);
+        getchar();
+    }while(cell(celular)==0 || size(celular, 11, 1)==0);
+    do{
+        printf("///           Estado: ");
+        scanf("%s", estado);
+        getchar();
+    }while(letras(estado)==0 || size(estado, 100, 1)==0);
+    do{
+        printf("///           Cidade: ");
+        scanf("%s", cidade);
+        getchar();
+    }while(size(cidade, 100, 1)==0);
+    do{
+        printf("///           Logradouro / Número: ");
+        scanf("%s", logradouro);
+        getchar();
+    }while(size(logradouro, 100, 1)==0);
+    do{
+        printf("///           Bairro: ");
+        scanf("%s", bairro);
+        getchar();
+    }while(size(bairro, 100, 1)==0);
+    do{
+        printf("///           CEP (apenas números): ");
+        scanf("%s", cep );
+        getchar();
+    }while(integer(cep)==0 || size(cep, 8, 1)==0);
+    do{
+        printf("///           Complemento: ");
+        scanf("%s", complemento);
+        getchar();
+    }while(size(complemento, 100, 1)==0);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -187,9 +209,11 @@ void telaAdministradorPesquisaCliente(void) {
     printf("///                                                                         ///\n");
     printf("///       = = = = = = = = = = Pesquisa de Cliente = = = = = = = = = =       ///\n");
     printf("///                                                                         ///\n");
-    printf("///           Informe o CPF (apenas números) do cliente: ");
-    scanf("%[0-9]", cpf );
-    getchar();
+    do{
+        printf("///           Informe o CPF (apenas números) do cliente: ");
+        scanf("%s", cpf );
+        getchar();
+    }while(cpfVerify(cpf)==0);
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
@@ -216,9 +240,11 @@ void telaAdministradorAtualizaCliente(void) {
     printf("///                                                                         ///\n");
     printf("///       = = = = = = = =  Atualização de Cliente = = = = = = = = = =       ///\n");
     printf("///                                                                         ///\n");
-    printf("///           Informe o CPF (apenas números) do cliente: ");
-    scanf("%[0-9]", cpf );
-    getchar();
+    do{
+        printf("///           Informe o CPF (apenas números) do cliente: ");
+        scanf("%s", cpf );
+        getchar();
+    }while(cpfVerify(cpf)==0);
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
