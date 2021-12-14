@@ -97,7 +97,7 @@ void telaClienteExtrato(void) {
 
 void telaClienteComprovantes(void) {
     system("clear||cls");
-    char comprovante[1];
+    char comprovante[10];
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -118,9 +118,11 @@ void telaClienteComprovantes(void) {
     printf("///            2. Depósito - Maria José Lócio Linhares Medeiros - R$500,00  ///\n");
     printf("///            3. Transferência - Jesca Gabrielly Medeiros - R$500,00       ///\n");
     printf("///                                                                         ///\n");
-    printf("///      Informe o número da transação que deseja emitir comprovante: ");
-    scanf("%[0-9]", comprovante );
-    getchar();
+    do{
+        printf("///      Informe o número da transação que deseja emitir comprovante: ");
+        scanf("%s", comprovante );
+        getchar();
+    }while(integer(comprovante)==0 || size(comprovante, 10, 1)==0);
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -146,9 +148,11 @@ void telaClientePagar(void) {
     printf("///                                                                         ///\n");
     printf("///                            PAGAMENTO DE BOLETO                          ///\n");
     printf("///                                                                         ///\n");
-    printf("///      Digite o código de barras do boleto: (apenas números)");
-    scanf("%[0-9]", codigo );
-    getchar();
+    do{
+        printf("///      Digite o código de barras do boleto: (apenas números)");
+        scanf("%s", codigo );
+        getchar();
+    }while(integer(codigo)==0 || size(codigo, 100, 1)==0);
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -162,7 +166,7 @@ void telaClienteTransferencia(void) {
     char agencia[5];
     char conta[20];
     char tipo[1];
-    
+    char valor[10];
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -180,22 +184,36 @@ void telaClienteTransferencia(void) {
     printf("///                                                                         ///\n");
     printf("///                             TRANSFERÊNCIA BANCÁRIA                      ///\n");
     printf("///                                                                         ///\n");
-    printf("///           Nome completo: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nome);
-    getchar();
-    printf("///           CPF (apenas números): ");
-    scanf("%[0-9]", cpf );
-    getchar();
-    printf("///           Agência (apenas números): ");
-    scanf("%[0-9]", agencia );
-    getchar();
-    printf("///           Conta (apenas números): ");
-    scanf("%[0-9]", conta );
-    getchar();
-    printf("///           Tipo da Conta (1-Corrente, 2-Poupança): ");
-    scanf("%[0-9]", tipo );
-    getchar();
-    printf("///                                                                         ///\n");
+    do{
+        printf("///           Nome completo (sem acento): ");
+        scanf("%s", nome);
+        getchar();
+    }while(letras(nome)==0 || size(nome, 100, 1)==0);
+    do{
+        printf("///           CPF (apenas números): ");
+        scanf("%s", cpf );
+        getchar();  
+    }while(cpfVerify(cpf)==0);
+    do{
+        printf("///           Agência (apenas números): ");
+        scanf("%s", agencia );
+        getchar();
+    }while(integer(agencia)==0);
+    do{
+        printf("///           Conta com dígito (apenas números): ");
+        scanf("%s", conta );
+        getchar();
+    }while(integer(conta)==0);
+    do{
+        printf("///           Tipo da Conta (1-Corrente, 2-Poupança): ");
+        scanf("%c", tipo );
+        getchar();
+    }while(integer(tipo)==0);
+    do{
+        printf("///      Digite o valor da transferêcia: (apenas números)");
+        scanf("%s", valor );
+        getchar();
+    }while(integer(valor)==0);
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
@@ -205,7 +223,7 @@ void telaClienteTransferencia(void) {
 
 void telaClienteEmprestimo(void) {
     system("clear||cls");
-    char valor[100];
+    char valor[10];
     char motivo[255];
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -223,12 +241,16 @@ void telaClienteEmprestimo(void) {
     printf("///                                                                         ///\n");
     printf("///                            PAGAMENTO DE BOLETO                          ///\n");
     printf("///                                                                         ///\n");
-    printf("///      Digite o valor do empréstimo: (apenas números)");
-    scanf("%[0-9]", valor );
-    getchar();
-    printf("///      Diga o motivo da solicitação:");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", motivo);
-    getchar();
+    do{
+        printf("///      Digite o valor do empréstimo (apenas números): ");
+        scanf("%s", valor );
+        getchar();
+    }while(integer(valor)==0);
+    do{
+        printf("///      Diga o motivo da solicitação:");
+        scanf("%s", motivo);
+        getchar();
+    }while(size(motivo, 255, 1)==0);
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
