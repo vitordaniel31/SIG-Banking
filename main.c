@@ -13,6 +13,7 @@
 #include "administrador.h"
 #include "cliente.h"
 #include "relatorios.h"
+#include "validators.h"
 
 
 /////

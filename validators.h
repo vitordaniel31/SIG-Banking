@@ -9,7 +9,8 @@
 
 // Assinatura das funções do módulo de validators
 int integer(char[]);
+int letras(char[]);
 int date(int, int, int);
 int telefone(char[]);
-int email(char[], int);
+int emailVerify(char[]);
 int size(char[], int);

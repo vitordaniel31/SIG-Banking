@@ -26,6 +26,17 @@ int integer(char entrada[]) { //verifica se entrada é um inteiro
     return 1;
 }
 
+int letras(char entrada[]) { //verifica se entrada é um inteiro
+    for(int i = 0; i < strlen(entrada); i++)
+    {
+        if (!isalpha(entrada[i]) && !isspace(entrada[i]))
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
 int date(int dia, int mes, int ano){
     int validateDay = 0;
     if((mes==1 || mes==3 || mes==5 || mes==7 || mes==8 || mes==10 || mes==12) && (dia>0 && dia<=31)) validateDay = 1;
@@ -45,8 +56,7 @@ int size(char entrada[], int tamanho){
     return 1;
 }
 
-int email(char entrada[], int tamanho){
-    if(size(entrada, tamanho)==0) return 0; //permite que o email tenha apenas 100 caracteres
+int emailVerify(char entrada[]){
     if(entrada[strlen(entrada)-4]!='.') return 0;
     if(entrada[strlen(entrada)-4]=='@') return 0;
 

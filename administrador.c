@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include "administrador.h"
 #include "validators.h"
 
@@ -64,7 +65,6 @@ char telaAdministrador(void) {
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    printf("%d", size("VITOR", 4));
     return escolha;
 }
 
@@ -124,15 +124,21 @@ void telaAdministradorCadastroCliente(void) {
     printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
     printf("///                                                                         ///\n");
     printf("///       = = = = = = = = = = Cadastro de Cliente = = = = = = = = = =       ///\n");
-    printf("///           Nome completo: ");
-    scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃÕ a-záéíóúâêôçàãõ]", nome);
-    getchar();
-    printf("///           CPF (apenas números): ");
-    scanf("%[0-9]", cpf );
-    getchar();
-    printf("///           E-mail: ");
-    scanf("%[A-Za-z0-9@._]", email);
-    getchar();
+    do{
+        printf("///           Nome completo (sem acento): ");
+        scanf("%[A-Z a-z 0-9]", nome);
+        getchar();
+    }while(letras(nome)==0 || size(nome, 100)==0);
+    do{
+        printf("///           CPF (apenas números): ");
+        scanf("%[0-9]", cpf );
+        getchar();  
+    }while(integer(cpf)==0 || size(cpf, 11)==0);
+    do{
+        printf("///           E-mail: ");
+        scanf("%[A-Za-z0-9@._]", email);
+        getchar();
+    }while(emailVerify(email)==0 || size(email, 100)==0);
     printf("///           Data de Nascimento (dd/mm/aaaa): ");
     scanf("%[0-9/]", dtnasc);
     getchar();
