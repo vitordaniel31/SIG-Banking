@@ -14,6 +14,8 @@
 #include "administrador.h"
 #include "validators.h"
 
+typedef struct cliente Cliente; //struct inspirado no de @flgorgonio
+
 ////// Funções do Módulo do Administrador
 void moduloAdministrador(void) {
     char opcao;
@@ -96,21 +98,11 @@ void telaAdministradorClientes(void) {
     getchar();
 }
 
-void telaAdministradorCadastroCliente(void) {
+Cliente* telaAdministradorCadastroCliente(void) {
     system("clear||cls");
-    char nome[100];
-    char cpf[11];
-    char email[100];
-    int dia = 0;
-    int mes = 0;
-    int ano = 0;
-    char celular[12];
-    char estado[100];
-    char cidade[100];
-    char logradouro[100];
-    char bairro[100];
-    char cep[8];
-    char complemento[100];
+    
+    Cliente *cli;
+    cli = (Cliente*) malloc(sizeof(Cliente));
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -129,65 +121,66 @@ void telaAdministradorCadastroCliente(void) {
     printf("///       = = = = = = = = = = Cadastro de Cliente = = = = = = = = = =       ///\n");
     do{
         printf("///           Nome completo (sem acento): ");
-        scanf("%s", nome);
+        scanf("%s", cli->nome);
         getchar();
-    }while(letras(nome)==0 || size(nome, 100, 1)==0);
+    }while(letras(cli->nome)==0 || size(cli->nome, 100, 1)==0);
     do{
         printf("///           CPF (apenas números): ");
-        scanf("%s", cpf );
+        scanf("%s", cli->cpf );
         getchar();  
-    }while(cpfVerify(cpf)==0);
+    }while(cpfVerify(cli->cpf)==0);
     do{
         printf("///           E-mail: ");
-        scanf("%s", email);
+        scanf("%s", cli->email);
         getchar();
-    }while(emailVerify(email)==0 || size(email, 100, 1)==0);
+    }while(emailVerify(cli->email)==0 || size(cli->email, 100, 1)==0);
     do{
         printf("///           Data de Nascimento (dd mm aaaa): ");
-        scanf("%d %d %d", &dia, &mes, &ano);
+        scanf("%d %d %d", &cli->dia, &cli->mes, &cli->ano);
         getchar();
-    }while(date(dia, mes, ano)==0);
+    }while(date(cli->dia, cli->mes, cli->ano)==0);
     do{
         printf("///           Celular  (apenas números): ");
-        scanf("%s", celular);
+        scanf("%s", cli->celular);
         getchar();
-    }while(cell(celular)==0 || size(celular, 11, 1)==0);
+    }while(cell(cli->celular)==0 || size(cli->celular, 11, 1)==0);
     do{
         printf("///           Estado: ");
-        scanf("%s", estado);
+        scanf("%s", cli->estado);
         getchar();
-    }while(letras(estado)==0 || size(estado, 100, 1)==0);
+    }while(letras(cli->estado)==0 || size(cli->estado, 100, 1)==0);
     do{
         printf("///           Cidade: ");
-        scanf("%s", cidade);
+        scanf("%s", cli->cidade);
         getchar();
-    }while(size(cidade, 100, 1)==0);
+    }while(size(cli->cidade, 100, 1)==0);
     do{
         printf("///           Logradouro / Número: ");
-        scanf("%s", logradouro);
+        scanf("%s", cli->logradouro);
         getchar();
-    }while(size(logradouro, 100, 1)==0);
+    }while(size(cli->logradouro, 100, 1)==0);
     do{
         printf("///           Bairro: ");
-        scanf("%s", bairro);
+        scanf("%s", cli->bairro);
         getchar();
-    }while(size(bairro, 100, 1)==0);
+    }while(size(cli->bairro, 100, 1)==0);
     do{
         printf("///           CEP (apenas números): ");
-        scanf("%s", cep );
+        scanf("%s", cli->cep );
         getchar();
-    }while(integer(cep)==0 || size(cep, 8, 1)==0);
+    }while(integer(cli->cep)==0 || size(cli->cep, 8, 1)==0);
     do{
         printf("///           Complemento: ");
-        scanf("%s", complemento);
+        scanf("%s", cli->complemento);
         getchar();
-    }while(size(complemento, 100, 1)==0);
+    }while(size(cli->complemento, 100, 1)==0);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
+    return cli;
 }
 
 void telaAdministradorPesquisaCliente(void) {

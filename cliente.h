@@ -7,11 +7,38 @@
 ///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///
 ///////////////////////////////////////////////////////////////////////////////
 
+typedef struct transferencia Transferencia; //struct inspirado no de @flgorgonio
+typedef struct deposito Deposito; //struct inspirado no de @flgorgonio
+typedef struct saque Saque; //struct inspirado no de @flgorgonio
+typedef struct emprestimo Emprestimo; //struct inspirado no de @flgorgonio
+
+struct transferencia {
+	char cpf[11];
+    char agencia[5];
+    char conta[20];
+    char tipo[1];
+    char valor[10];
+};
+
+struct deposito {
+    char valor[10];
+};
+
+struct saque {
+    char valor[10];
+};
+
+struct emprestimo {
+    char valor[10];
+    char motivo[255];
+};
+
 // Assinatura das funções do módulo do cliente
 void moduloCliente(void);
 char telaCliente(void);
 void telaClienteExtrato(void);
 void telaClienteComprovantes(void);
-void telaClientePagar(void);
-void telaClienteTransferencia(void);
-void telaClienteEmprestimo(void);
+Saque* telaClienteSaque(void);
+Deposito* telaClienteDeposito(void);
+Transferencia* telaClienteTransferencia(void);
+Emprestimo* telaClienteEmprestimo(void);
