@@ -32,5 +32,6 @@ char telaAdministrador(void);
 void telaAdministradorClientes(void);
 Cliente* telaAdministradorCadastroCliente(void);
 void telaAdministradorPesquisaCliente(void);
+void telaAdministradorDadosCliente(char[]);
 void telaAdministradorAtualizaCliente(void);
 void telaAdministradorTransacoes(void);

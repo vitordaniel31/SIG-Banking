@@ -16,7 +16,8 @@
 
 ////// Funções do Módulo Validator
 int integer(char entrada[]) { //verifica se entrada é um inteiro
-    for(int i = 0; i < strlen(entrada); i++)
+    int i;
+    for(i = 0; i < strlen(entrada); i++)
     {
         if (!isdigit(entrada[i]))
         {
@@ -27,7 +28,8 @@ int integer(char entrada[]) { //verifica se entrada é um inteiro
 }
 
 int letras(char entrada[]) { //verifica se entrada é um inteiro
-    for(int i = 0; i < strlen(entrada); i++)
+    int i;
+    for(i = 0; i < strlen(entrada); i++)
     {
         if (!isalpha(entrada[i]) && !isspace(entrada[i]))
         {
@@ -38,7 +40,8 @@ int letras(char entrada[]) { //verifica se entrada é um inteiro
 }
 
 int cpfVerify(char entrada[]) { //verifica se o cpf digitado tem 11 digitos
-    for(int i = 0; i < strlen(entrada); i++)
+    int i;
+    for(i = 0; i < strlen(entrada); i++)
     {
         if (!isdigit(entrada[i]))
         {
@@ -76,7 +79,8 @@ int emailVerify(char entrada[]){
 
     int arrobaPos = -1;
     int contArroba = 0;
-    for (int i = 0; i < strlen(entrada); i++)
+    int i;
+    for (i = 0; i < strlen(entrada); i++)
     {
         if(entrada[i]=='@'){
           arrobaPos = i;
@@ -87,10 +91,11 @@ int emailVerify(char entrada[]){
 
     
     char permitidos[28]={'.', 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y', 'z'};
-    for (int i = arrobaPos; i < strlen(entrada)-4; i++)
+    for (i = arrobaPos; i < strlen(entrada)-4; i++)
     {   
         int count = 0;
-        for (int j = 0; j < 28; j++)
+        int j;
+        for (j = 0; j < 28; j++)
         {
             if(entrada[i+1]==permitidos[j]){
               count++;
