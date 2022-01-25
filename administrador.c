@@ -105,7 +105,7 @@ Cliente* telaAdministradorCadastroCliente(void) {
     cli = (Cliente*) malloc(sizeof(Cliente));
 
     FILE* fp; //baseado nos slides apresentados nas aulas
-    fp = fopen("clientes.txt","at");
+    fp = fopen("clientes.dat","ab");
     if (fp == NULL){ //se a função não retornar nada
       printf("Erro! O sistema não conseguiu criar o arquivo\n!");
       exit(1);
@@ -131,85 +131,85 @@ Cliente* telaAdministradorCadastroCliente(void) {
         scanf("%s", cli->nome);
         getchar();
     }while(letras(cli->nome)==0 || size(cli->nome, 100, 1)==0);
-    fprintf(fp,"%s \n", cli->nome);
+    //fprintf(fp,"%s \n", cli->nome);
 
     do{
         printf("///           CPF (apenas números): ");
-        scanf("%s", cli->cpf );
+        scanf("%s", cli->cpf);
         getchar();  
     }while(cpfVerify(cli->cpf)==0);
-    fprintf(fp,"%s \n", cli->cpf);
+    //fprintf(fp,"%s \n", cli->cpf);
 
     do{
         printf("///           E-mail: ");
         scanf("%s", cli->email);
         getchar();
     }while(emailVerify(cli->email)==0 || size(cli->email, 100, 1)==0);
-    fprintf(fp,"%s \n", cli->email);
+    //fprintf(fp,"%s \n", cli->email);
 
     do{
         printf("///           Data de Nascimento (dd mm aaaa): ");
         scanf("%d %d %d", &cli->dia, &cli->mes, &cli->ano);
         getchar();
     }while(date(cli->dia, cli->mes, cli->ano)==0);
-    fprintf(fp,"%d/%d/%d \n", cli->dia, cli->mes, cli->ano);
+    //fprintf(fp,"%d/%d/%d \n", cli->dia, cli->mes, cli->ano);
 
     do{
         printf("///           Celular  (apenas números): ");
         scanf("%s", cli->celular);
         getchar();
     }while(cell(cli->celular)==0 || size(cli->celular, 11, 1)==0);
-    fprintf(fp,"%s \n", cli->celular);
+    //fprintf(fp,"%s \n", cli->celular);
     
     do{
         printf("///           Estado: ");
         scanf("%s", cli->estado);
         getchar();
     }while(letras(cli->estado)==0 || size(cli->estado, 100, 1)==0);
-    fprintf(fp,"%s \n", cli->estado);
+    //fprintf(fp,"%s \n", cli->estado);
     
     do{
         printf("///           Cidade: ");
         scanf("%s", cli->cidade);
         getchar();
     }while(size(cli->cidade, 100, 1)==0);
-    fprintf(fp,"%s \n", cli->cidade);
+    //fprintf(fp,"%s \n", cli->cidade);
     
     do{
         printf("///           Logradouro / Número: ");
         scanf("%s", cli->logradouro);
         getchar();
     }while(size(cli->logradouro, 100, 1)==0);
-    fprintf(fp,"%s \n", cli->logradouro);
+    //fprintf(fp,"%s \n", cli->logradouro);
     
     do{
         printf("///           Bairro: ");
         scanf("%s", cli->bairro);
         getchar();
     }while(size(cli->bairro, 100, 1)==0);
-    fprintf(fp,"%s \n", cli->bairro);
+    //fprintf(fp,"%s \n", cli->bairro);
     
     do{
         printf("///           CEP (apenas números): ");
-        scanf("%s", cli->cep );
+        scanf("%s", cli->cep);
         getchar();
     }while(integer(cli->cep)==0 || size(cli->cep, 8, 1)==0);
-    fprintf(fp,"%s \n", cli->cep);
+    //fprintf(fp,"%s \n", cli->cep);
     
     do{
         printf("///           Complemento: ");
         scanf("%s", cli->complemento);
         getchar();
     }while(size(cli->complemento, 100, 1)==0);
-    fprintf(fp,"%s \n\n", cli->complemento);
-    fclose(fp);
+    //fprintf(fp,"%s \n\n", cli->complemento);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    fwrite(cli, sizeof(Cliente), 1, fp);
+    fclose(fp);
     getchar();
-    //fwrite(cli, sizeof(Cliente), 1, fp);
     return cli;
 }
 
@@ -246,11 +246,11 @@ void telaAdministradorPesquisaCliente(void) {
 }
 
 void telaAdministradorDadosCliente(char cpf[]) {
-    /*FILE* fp;
+    FILE* fp;
     Cliente* cli;
 
     cli = (Cliente*) malloc(sizeof(Cliente));
-    fp = fopen("clientes.txt", "rt");
+    fp = fopen("clientes.dat", "rb");
     if (fp == NULL) {
         printf("Erro! O sistema não conseguiu encontrar os dados desse cliente no arquivo\n!");
         exit(1);
@@ -278,8 +278,9 @@ void telaAdministradorDadosCliente(char cpf[]) {
     printf("///                                                                         ///\n");
     printf("///       = = = = = = = = = = Cadastro de Cliente = = = = = = = = = =       ///\n");
     printf("///           Nome: %s \n", cli->nome);
-    printf("///           CPF: %s \n ", cli->cpf);
-    printf("///           E-mail: %s \n ", cli->email);
+    printf("///           CPF: %s \n", cli->cpf);
+    printf("///           E-mail: %s \n", cli->email);
+    printf("///           Data de Nascimento: %d/%d/%d \n", cli->dia, cli->mes, cli->ano);
     printf("///           Celular: %s \n", cli->celular);
     printf("///           Estado: %s \n", cli->estado);
     printf("///           Cidade: %s \n", cli->cidade);
@@ -293,7 +294,6 @@ void telaAdministradorDadosCliente(char cpf[]) {
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
-    */
 }
 
 void telaAdministradorAtualizaCliente(void) {
