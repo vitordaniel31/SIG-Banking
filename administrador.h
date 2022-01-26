@@ -10,19 +10,14 @@
 typedef struct cliente Cliente; //struct inspirado no de @flgorgonio
 
 struct cliente {
-	char nome[100];
-    char cpf[11];
-    char email[100];
+	char nome[101];
+    char cpf[12];
+    char email[101];
     int dia;
     int mes;
     int ano;
     char celular[12];
-    char estado[100];
-    char cidade[100];
-    char logradouro[100];
-    char bairro[100];
-    char cep[8];
-    char complemento[100];
+    char endereco[255];
 };
 
 

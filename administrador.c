@@ -162,46 +162,11 @@ Cliente* telaAdministradorCadastroCliente(void) {
     //fprintf(fp,"%s \n", cli->celular);
     
     do{
-        printf("///           Estado: ");
-        scanf("%s", cli->estado);
+        printf("///           Endereço: ");
+        scanf("%s", cli->endereco);
         getchar();
-    }while(letras(cli->estado)==0 || size(cli->estado, 100, 1)==0);
-    //fprintf(fp,"%s \n", cli->estado);
-    
-    do{
-        printf("///           Cidade: ");
-        scanf("%s", cli->cidade);
-        getchar();
-    }while(size(cli->cidade, 100, 1)==0);
-    //fprintf(fp,"%s \n", cli->cidade);
-    
-    do{
-        printf("///           Logradouro / Número: ");
-        scanf("%s", cli->logradouro);
-        getchar();
-    }while(size(cli->logradouro, 100, 1)==0);
-    //fprintf(fp,"%s \n", cli->logradouro);
-    
-    do{
-        printf("///           Bairro: ");
-        scanf("%s", cli->bairro);
-        getchar();
-    }while(size(cli->bairro, 100, 1)==0);
-    //fprintf(fp,"%s \n", cli->bairro);
-    
-    do{
-        printf("///           CEP (apenas números): ");
-        scanf("%s", cli->cep);
-        getchar();
-    }while(integer(cli->cep)==0 || size(cli->cep, 8, 1)==0);
-    //fprintf(fp,"%s \n", cli->cep);
-    
-    do{
-        printf("///           Complemento: ");
-        scanf("%s", cli->complemento);
-        getchar();
-    }while(size(cli->complemento, 100, 1)==0);
-    //fprintf(fp,"%s \n\n", cli->complemento);
+    }while(size(cli->endereco, 254, 1)==0);
+    //fprintf(fp,"%s \n", cli->endereco);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -282,12 +247,7 @@ void telaAdministradorDadosCliente(char cpf[]) {
     printf("///           E-mail: %s \n", cli->email);
     printf("///           Data de Nascimento: %d/%d/%d \n", cli->dia, cli->mes, cli->ano);
     printf("///           Celular: %s \n", cli->celular);
-    printf("///           Estado: %s \n", cli->estado);
-    printf("///           Cidade: %s \n", cli->cidade);
-    printf("///           Logradouro / Número: %s \n", cli->logradouro);
-    printf("///           Bairro: %s \n", cli->nome);
-    printf("///           CEP: %s \n", cli->cep);
-    printf("///           Complemento: %s \n", cli->complemento);
+    printf("///           Endereço: %s \n", cli->endereco);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
