@@ -174,6 +174,7 @@ Cliente* telaAdministradorCadastroCliente(void) {
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     fwrite(cli, sizeof(Cliente), 1, fp);
     fclose(fp);
+    free(cli);
     getchar();
     return cli;
 }
@@ -252,6 +253,7 @@ void telaAdministradorDadosCliente(char cpf[]) {
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
+    free(cli);
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }

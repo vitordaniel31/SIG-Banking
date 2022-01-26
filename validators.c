@@ -13,6 +13,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "validators.h"
+#include "administrador.h"
 
 ////// Funções do Módulo Validator
 int integer(char entrada[]) { //verifica se entrada é um inteiro
@@ -40,15 +41,33 @@ int letras(char entrada[]) { //verifica se entrada é um inteiro
 }
 
 int cpfVerify(char entrada[]) { //verifica se o cpf digitado tem 11 digitos
+    FILE* fp;
+    Cliente* cliente;
+
+    cliente = (Cliente*) malloc(sizeof(Cliente));
+    fp = fopen("clientes.dat", "rb");
+    if (fp == NULL) {
+        printf("Erro! O sistema não conseguiu encontrar os dados desse cliente no arquivo\n!");
+        return 1;
+    }
+    while(fread(cliente, sizeof(Cliente), 1, fp)) {
+        if ((strcmp(cliente->cpf, entrada) == 0)) {
+            printf("///                 JÁ EXISTE UM CLIENTE COM ESSE CPF                       ///\n");
+            fclose(fp);
+            return 0;
+        }
+    }
+
     int i;
     for(i = 0; i < strlen(entrada); i++)
     {
         if (!isdigit(entrada[i]))
         {
+            printf("///                 O CAMPO CPF SÓ PERMITE NÚMEROS                          ///\n");
             return 0;
         }
     }
-
+    free(cliente);
     if(strlen(entrada)!=11) return 0; 
     return 1;
 }
