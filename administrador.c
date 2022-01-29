@@ -110,6 +110,12 @@ Cliente* telaAdministradorCadastroCliente(void) {
       printf("Erro! O sistema não conseguiu criar o arquivo\n!");
       exit(1);
     }
+    int conta = 0;
+    while(fread(cli, sizeof(Cliente), 1, fp)) {
+        conta = conta + 1;
+    }
+    conta = conta + 1;
+    
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -166,6 +172,7 @@ Cliente* telaAdministradorCadastroCliente(void) {
         scanf("%s", cli->endereco);
         getchar();
     }while(size(cli->endereco, 254, 1)==0);
+    cli->conta = conta;
     //fprintf(fp,"%s \n", cli->endereco);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
@@ -198,15 +205,18 @@ void telaAdministradorPesquisaCliente(void) {
     printf("///                                                                         ///\n");
     printf("///       = = = = = = = = = = Pesquisa de Cliente = = = = = = = = = =       ///\n");
     printf("///                                                                         ///\n");
-    do{
-        printf("///           Informe o CPF (apenas números) do cliente: ");
-        scanf("%s", cpf );
-        getchar();
-    }while(cpfVerify(cpf)==0);
+    printf("///             #Digite 0 para voltar ao menu anterior#                     ///\n");
+    printf("///                                                                         ///\n");
+    printf("///           Informe o CPF (apenas números) do cliente: ");
+    scanf("%s", cpf );
+    getchar();
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    if((strcmp(cpf, "0") == 0)){
+        moduloAdministrador();
+    }
     telaAdministradorDadosCliente(cpf);
     getchar();
 }
@@ -218,13 +228,13 @@ void telaAdministradorDadosCliente(char cpf[]) {
     cli = (Cliente*) malloc(sizeof(Cliente));
     fp = fopen("clientes.dat", "rb");
     if (fp == NULL) {
-        printf("Erro! O sistema não conseguiu encontrar os dados desse cliente no arquivo\n!");
+        printf("Erro! O sistema não  conseguiu encontrar os dados desse cliente no arquivo\n!");
         exit(1);
     }
     while(fread(cli, sizeof(Cliente), 1, fp)) {
         if ((strcmp(cli->cpf, cpf) == 0)) {
             fclose(fp);
-        }
+        }else return telaAdministradorPesquisaCliente();    
     }
     fclose(fp);
     system("clear||cls");
@@ -245,6 +255,7 @@ void telaAdministradorDadosCliente(char cpf[]) {
     printf("///       = = = = = = = = = = Cadastro de Cliente = = = = = = = = = =       ///\n");
     printf("///           Nome: %s \n", cli->nome);
     printf("///           CPF: %s \n", cli->cpf);
+    printf("///           Conta: %d \n", cli->conta);
     printf("///           E-mail: %s \n", cli->email);
     printf("///           Data de Nascimento: %d/%d/%d \n", cli->dia, cli->mes, cli->ano);
     printf("///           Celular: %s \n", cli->celular);

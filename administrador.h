@@ -12,6 +12,7 @@ typedef struct cliente Cliente; //struct inspirado no de @flgorgonio
 struct cliente {
 	char nome[101];
     char cpf[12];
+    int conta; // a conta terá 5 digitos
     char email[101];
     int dia;
     int mes;
