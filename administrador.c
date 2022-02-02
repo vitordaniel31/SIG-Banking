@@ -17,6 +17,7 @@
 typedef struct cliente Cliente; //struct inspirado no de @flgorgonio
 
 ////// Funções do Módulo do Administrador
+///
 void moduloAdministrador(void) {
     char opcao;
     do {
@@ -71,6 +72,17 @@ char telaAdministrador(void) {
 }
 
 void telaAdministradorClientes(void) {
+    FILE* fp;
+    Cliente* cli;
+
+    cli = (Cliente*) malloc(sizeof(Cliente));
+    fp = fopen("clientes.dat", "rb");
+    if (fp == NULL) {
+        printf("Erro! O sistema não  conseguiu encontrar o arquivo de dados dos clientes\n!"); //criar tela de erro
+        exit(1);
+    }
+    int count = 0;
+
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -88,12 +100,16 @@ void telaAdministradorClientes(void) {
     printf("///                                                                         ///\n");
     printf("///                        LISTA DE CLIENTES (N0ME E CPF)                   ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Vitor Daniel Lócio Medeiros (101.101.101-11)              ///\n");
-    printf("///            2. Maria José Lócio Linhares Medeiros (101.101.101-11)       ///\n");
-    printf("///            3. Jesca Gabrielly Medeiros (101.101.101-11)                 ///\n");
+    while(fread(cli, sizeof(Cliente), 1, fp)) {
+        count = count +1;
+        printf("///       %d. %s (%s)\n", count, cli->nome, cli->cpf);
+        
+    }
+    fclose(fp);
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
+    free(cli);
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
