@@ -46,10 +46,6 @@ int cpfVerify(char entrada[]) { //verifica se o cpf digitado tem 11 digitos
 
     cliente = (Cliente*) malloc(sizeof(Cliente));
     fp = fopen("clientes.dat", "rb");
-    if (fp == NULL) {
-        printf("Erro! O sistema não conseguiu encontrar os dados desse cliente no arquivo\n!");
-        return 1;
-    }
     while(fread(cliente, sizeof(Cliente), 1, fp)) {
         if ((strcmp(cliente->cpf, entrada) == 0)) {
             printf("///                 JÁ EXISTE UM CLIENTE COM ESSE CPF                       ///\n");
@@ -92,7 +88,7 @@ int size(char entrada[], int tamanho, int required){
     return 1;
 }
 
-int emailVerify(char entrada[]){
+/*int emailVerify(char entrada[]){
     if(entrada[strlen(entrada)-4]!='.') return 0;
     if(entrada[strlen(entrada)-4]=='@') return 0;
 
@@ -125,7 +121,7 @@ int emailVerify(char entrada[]){
     }
   
     return 1;
-}
+}*/
 
 int cell(char entrada[]){
     if(strlen(entrada)!=11) return 0; //verifica se tem 11 digitos

@@ -25,7 +25,7 @@ void moduloAdministrador(void) {
         switch(opcao) {
             case '1':   telaAdministradorClientes();
                         break;
-            case '2':   telaAdministradorCadastroCliente();
+            case '2':   administradorCadastrarCliente();
                         break;
             case '3':   administradorPesquisarCliente();
                         break;
@@ -114,24 +114,32 @@ void telaAdministradorClientes(void) {
     getchar();
 }
 
+//funções para cadastrar um cliente
+void administradorCadastrarCliente(void) {
+    Cliente *cli;
+
+    cli = telaAdministradorCadastroCliente();
+    administradorSalvarCliente(cli);
+    free(cli);
+}
+
 Cliente* telaAdministradorCadastroCliente(void) {
     system("clear||cls");
-    
     Cliente *cli;
     cli = (Cliente*) malloc(sizeof(Cliente));
 
-    FILE* fp; //baseado nos slides apresentados nas aulas
-    fp = fopen("clientes.dat","ab");
-    if (fp == NULL){ //se a função não retornar nada
-      printf("Erro! O sistema não conseguiu criar o arquivo\n!");
-      exit(1);
-    }
     int conta = 0;
-    while(fread(cli, sizeof(Cliente), 1, fp)) {
-        conta = conta + 1;
+    FILE* fp; //baseado nos slides apresentados nas aulas
+    fp = fopen("clientes.dat","rb");
+    if (fp == NULL){ //se a função não retornar nada
+      conta = 0;
+    }else{
+        while(fread(cli, sizeof(Cliente), 1, fp)) {
+            conta = conta + 1;
+        }
     }
-    conta = conta + 1;
-    
+    conta = conta + 1;     
+    sprintf(cli->conta, "%05d", conta);
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -149,24 +157,24 @@ Cliente* telaAdministradorCadastroCliente(void) {
     printf("///                                                                         ///\n");
     printf("///       = = = = = = = = = = Cadastro de Cliente = = = = = = = = = =       ///\n");
     do{
-        printf("///           Nome completo (sem acento): ");
-        scanf("%s", cli->nome);
+        printf("///            Nome completo (sem acento): ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃ a-záéíóúâêôçàãõ 0-9]", cli->nome);
         getchar();
-    }while(letras(cli->nome)==0 || size(cli->nome, 100, 1)==0);
+    }while(letras(cli->nome)==0 || size(cli->nome, 255, 1)==0);
     //fprintf(fp,"%s \n", cli->nome);
 
     do{
-        printf("///           CPF (apenas números): ");
-        scanf("%s", cli->cpf);
+        printf("///            CPF (apenas números): ");
+        scanf("%[0-9]", cli->cpf);
         getchar();  
     }while(cpfVerify(cli->cpf)==0);
     //fprintf(fp,"%s \n", cli->cpf);
 
-    do{
+    /*do{
         printf("///           E-mail: ");
-        scanf("%s", cli->email);
+        scanf("%[a-z0-9@.]", cli->email);
         getchar();
-    }while(emailVerify(cli->email)==0 || size(cli->email, 100, 1)==0);
+    }while(emailVerify(cli->email)==0 || size(cli->email, 255, 1)==0);*/
     //fprintf(fp,"%s \n", cli->email);
 
     do{
@@ -178,28 +186,36 @@ Cliente* telaAdministradorCadastroCliente(void) {
 
     do{
         printf("///           Celular  (apenas números): ");
-        scanf("%s", cli->celular);
+        scanf("%[0-9]", cli->celular);
         getchar();
     }while(cell(cli->celular)==0 || size(cli->celular, 11, 1)==0);
     //fprintf(fp,"%s \n", cli->celular);
     
     do{
-        printf("///           Endereço: ");
-        scanf("%s", cli->endereco);
+        printf("///           Endereço (sem acento): ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃ a-záéíóúâêôçàãõ 0-9]", cli->endereco);
         getchar();
-    }while(size(cli->endereco, 254, 1)==0);
-    cli->conta = conta;
+    }while(size(cli->endereco, 255, 1)==0);
     //fprintf(fp,"%s \n", cli->endereco);
     printf("///                                                                         ///\n");
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    fwrite(cli, sizeof(Cliente), 1, fp);
-    fclose(fp);
-    free(cli);
     getchar();
     return cli;
+}
+
+void administradorSalvarCliente(Cliente* cli) { //ESSA FUNÇÃO FOI INSPIRADA NO GITHUB DE @flgorgonio
+    FILE* fp;
+
+    fp = fopen("clientes.dat", "ab");
+    if (fp == NULL) {
+        printf("Erro! O sistema não  conseguiu encontrar o arquivo de dados dos clientes\n!"); //criar tela de erro
+        exit(1);
+    }
+    fwrite(cli, sizeof(Cliente), 1, fp);
+    fclose(fp);
 }
 
 
@@ -288,8 +304,8 @@ void telaAdministradorExibeCliente(Cliente* cli) {
         printf("///       = = = = = = = = = =  Dados do Cliente = = = = = = = = = = =       ///\n");
         printf("///           Nome: %s \n", cli->nome);
         printf("///           CPF: %s \n", cli->cpf);
-        printf("///           Conta: %d \n", cli->conta);
-        printf("///           E-mail: %s \n", cli->email);
+        printf("///           Conta: %s \n", cli->conta);
+        //printf("///           E-mail: %s \n", cli->email);
         printf("///           Data de Nascimento: %d/%d/%d \n", cli->dia, cli->mes, cli->ano);
         printf("///           Celular: %s \n", cli->celular);
         printf("///           Endereço: %s \n", cli->endereco);

@@ -10,15 +10,15 @@
 typedef struct cliente Cliente; //struct inspirado no de @flgorgonio
 
 struct cliente {
-	char nome[101];
+	char nome[256];
     char cpf[12];
-    int conta; // a conta terá 5 digitos
-    char email[101];
+    char conta[6]; // a conta terá 5 digitos
+    char email[256];
     int dia;
     int mes;
     int ano;
     char celular[12];
-    char endereco[255];
+    char endereco[256];
 };
 
 
@@ -26,7 +26,11 @@ struct cliente {
 void moduloAdministrador(void);
 char telaAdministrador(void);
 void telaAdministradorClientes(void);
+
+//funções para cadastrasr um cliente
+void administradorCadastrarCliente(void);
 Cliente* telaAdministradorCadastroCliente(void);
+void administradorSalvarCliente(Cliente*);
 
 //funções para pesquisar um cliente
 void administradorPesquisarCliente(void);
