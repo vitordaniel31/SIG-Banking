@@ -26,7 +26,7 @@ void moduloAdministrador(void) {
                         break;
             case '2':   telaAdministradorCadastroCliente();
                         break;
-            case '3':   telaAdministradorPesquisaCliente();
+            case '3':   administradorPesquisarCliente();
                         break;
             case '4':   telaAdministradorAtualizaCliente();
                         break;
@@ -186,9 +186,23 @@ Cliente* telaAdministradorCadastroCliente(void) {
     return cli;
 }
 
-void telaAdministradorPesquisaCliente(void) {
+
+//funções para pesquisar um cliente
+void administradorPesquisarCliente(void) { //ESSA FUNÇÃO FOI INSPIRADA NO GITHUB DE @flgorgonio
+    Cliente* cli;
+    char* cpf;
+
+    cpf = telaAdministradorPesquisaCliente();
+    cli = administradorBuscarCliente(cpf);
+    telaAdministradorExibeCliente(cli);
+    free(cli); 
+    free(cpf);
+}
+
+char* telaAdministradorPesquisaCliente(void) {
     system("clear||cls");
-    char cpf[11];
+    char* cpf;
+    cpf = (char*) malloc(12*sizeof(char));
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -213,30 +227,30 @@ void telaAdministradorPesquisaCliente(void) {
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    if((strcmp(cpf, "0") == 0)){
-        moduloAdministrador();
-    }
-    telaAdministradorDadosCliente(cpf);
-    getchar();
+    return cpf;
 }
 
-void telaAdministradorDadosCliente(char cpf[]) {
+Cliente* administradorBuscarCliente(char* cpf){ //ESSA FUNÇÃO FOI INSPIRADA NO GITHUB DE @flgorgonio
     FILE* fp;
     Cliente* cli;
 
     cli = (Cliente*) malloc(sizeof(Cliente));
     fp = fopen("clientes.dat", "rb");
     if (fp == NULL) {
-        printf("Erro! O sistema não  conseguiu encontrar os dados desse cliente no arquivo\n!");
+        printf("Erro! O sistema não  conseguiu encontrar o arquivo de dados dos clientes\n!"); //criar tela de erro
         exit(1);
     }
     while(fread(cli, sizeof(Cliente), 1, fp)) {
-        if ((strcmp(cli->cpf, cpf) == 0)) {
+        if ((strcmp(cli->cpf, cpf) == 0)) { 
             fclose(fp);
-        }else return telaAdministradorPesquisaCliente();    
+            return cli;
+        } 
     }
     fclose(fp);
+    return NULL;
+}
+
+void telaAdministradorExibeCliente(Cliente* cli) {
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -252,19 +266,22 @@ void telaAdministradorDadosCliente(char cpf[]) {
     printf("///                                                                         ///\n");
     printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
     printf("///                                                                         ///\n");
-    printf("///       = = = = = = = = = = Cadastro de Cliente = = = = = = = = = =       ///\n");
-    printf("///           Nome: %s \n", cli->nome);
-    printf("///           CPF: %s \n", cli->cpf);
-    printf("///           Conta: %d \n", cli->conta);
-    printf("///           E-mail: %s \n", cli->email);
-    printf("///           Data de Nascimento: %d/%d/%d \n", cli->dia, cli->mes, cli->ano);
-    printf("///           Celular: %s \n", cli->celular);
-    printf("///           Endereço: %s \n", cli->endereco);
-    printf("///                                                                         ///\n");
+    if(cli == NULL){
+        printf("///       = = = = = = = = = =  Cliente Inexistente = = = = = = = = = = =    ///\n");
+    }else{
+        printf("///       = = = = = = = = = =  Dados do Cliente = = = = = = = = = = =       ///\n");
+        printf("///           Nome: %s \n", cli->nome);
+        printf("///           CPF: %s \n", cli->cpf);
+        printf("///           Conta: %d \n", cli->conta);
+        printf("///           E-mail: %s \n", cli->email);
+        printf("///           Data de Nascimento: %d/%d/%d \n", cli->dia, cli->mes, cli->ano);
+        printf("///           Celular: %s \n", cli->celular);
+        printf("///           Endereço: %s \n", cli->endereco);
+        printf("///                                                                         ///\n");
+    }
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
-    free(cli);
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }

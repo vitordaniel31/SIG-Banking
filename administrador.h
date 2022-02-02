@@ -27,7 +27,13 @@ void moduloAdministrador(void);
 char telaAdministrador(void);
 void telaAdministradorClientes(void);
 Cliente* telaAdministradorCadastroCliente(void);
-void telaAdministradorPesquisaCliente(void);
-void telaAdministradorDadosCliente(char[]);
+
+//funções para pesquisar um cliente
+void administradorPesquisarCliente(void);
+char* telaAdministradorPesquisaCliente(void);
+Cliente* administradorBuscarCliente(char*);
+void telaAdministradorExibeCliente(Cliente*);
+
+
 void telaAdministradorAtualizaCliente(void);
 void telaAdministradorTransacoes(void);
