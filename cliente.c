@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
 #include "cliente.h"
 #include "administrador.h"
 #include "validators.h"
@@ -75,6 +76,16 @@ char telaCliente(void) {
 }
 
 void telaClienteExtrato(void) {
+    FILE* fp;
+    Extrato* extrato;
+
+    extrato = (Extrato*) malloc(sizeof(Extrato));
+    fp = fopen("extratos.dat", "rb");
+    if (fp == NULL) {
+        printf("Erro! O sistema não  conseguiu encontrar o arquivo de dados dos clientes\n!"); //criar tela de erro
+        exit(1);
+    }
+
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -90,15 +101,18 @@ void telaClienteExtrato(void) {
     printf("///                                                                         ///\n");
     printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
     printf("///                                                                         ///\n");
-    printf("///                                 MEU EXTRATO                             ///\n");
+    printf("///                                 Meu Extrato                             ///\n");
     printf("///                                                                         ///\n");
-    printf("///            Saque == (- R$1000,00)                         10/11/2021    ///\n");
-    printf("///            Depósito == (+ R$500,00)                       12/11/2021    ///\n");
-    printf("///            Transferência == (- R$300,00)                  14/11/2021    ///\n");
+    while(fread(extrato, sizeof(Extrato), 1, fp)) {
+        if ((strcmp(extrato->cpf, cpf_cliente) == 0)) { 
+            printf("///            %s == (R$%d) \n", extrato->tipo_movimentacao, extrato->valor);
+        } 
+    }
     printf("///                                                                         ///\n");
-    printf("///            SALDO ATUAL = R$3500,00                        15/11/2021    ///\n");
+    printf("///            SALDO ATUAL = R$%d \n", cliente_logado->saldo);
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
+    fclose(fp);
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
@@ -192,7 +206,7 @@ void clienteSalvarExtrato(Extrato* extrato) {
 
     fp = fopen("extratos.dat", "ab");
     if (fp == NULL) {
-        printf("Erro! O sistema não  conseguiu encontrar o arquivo de dados dos extatos\n!"); //criar tela de erro
+        printf("Erro! O sistema não  conseguiu encontrar o arquivo de dados dos extratos\n!"); //criar tela de erro
         exit(1);
     }
     fwrite(extrato, sizeof(Extrato), 1, fp);

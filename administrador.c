@@ -297,7 +297,6 @@ void telaAdministradorExibeCliente(Cliente* cli) {
         printf("///           Nome: %s \n", cli->nome);
         printf("///           CPF: %s \n", cli->cpf);
         printf("///           Conta: %s \n", cli->conta);
-        //printf("///           E-mail: %s \n", cli->email);
         printf("///           Data de Nascimento: %d/%d/%d \n", cli->dia, cli->mes, cli->ano);
         printf("///           Celular: %s \n", cli->celular);
         printf("///           Endereço: %s \n", cli->endereco);
