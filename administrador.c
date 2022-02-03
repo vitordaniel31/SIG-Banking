@@ -140,6 +140,7 @@ Cliente* telaAdministradorCadastroCliente(void) {
     }
     conta = conta + 1;     
     sprintf(cli->conta, "%05d", conta);
+    cli->saldo = 0;
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -308,6 +309,7 @@ void telaAdministradorExibeCliente(Cliente* cli) {
         printf("///           Celular: %s \n", cli->celular);
         printf("///           Endereço: %s \n", cli->endereco);
         printf("///                                                                         ///\n");
+        printf("///           Saldo: R$%2.f \n", cli->saldo);
     }
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -322,19 +324,23 @@ void administradorAtualizarCliente(void) {
     Cliente* cli;
     char* cpf;
     char* conta;
+    double saldo;
 
     cpf = telaAdministradorPesquisaCliente();
     cli = administradorBuscarCliente(cpf);
     conta = cli->conta;
+    saldo = cli->saldo;
     if (cli == NULL) {
         telaAdministradorExibeCliente(cli); //para mostrar que o cliente não existe
     } else {
-          cli = telaAdministradorAtualizarCliente();
-          strcpy(cli->cpf, cpf); //não deixa alterar o cpf
-          strcpy(cli->conta, conta); //não deixa alterar a conta
-          administradorRegravarCliente(cli);
-          free(cli);
+        cli = telaAdministradorAtualizarCliente();
+        strcpy(cli->cpf, cpf); //não deixa alterar o cpf
+        strcpy(cli->conta, conta); //não deixa alterar a conta
+        cli->saldo = saldo;
+        administradorRegravarCliente(cli);
+        telaAdministradorExibeCliente(cli);
     }
+    free(cli);
     free(cpf);
 }
 
@@ -399,7 +405,7 @@ void administradorRegravarCliente(Cliente* cli) { //ESSA FUNÇÃO FOI INSPIRADA 
     Cliente* clientes;
 
     clientes = (Cliente*) malloc(sizeof(Cliente));
-    fp = fopen("clientes.dat", "rb");
+    fp = fopen("clientes.dat", "r+b");
     if (fp == NULL) {
         printf("Erro! O sistema não  conseguiu encontrar o arquivo de dados dos clientes\n!"); //criar tela de erro
         exit(1);

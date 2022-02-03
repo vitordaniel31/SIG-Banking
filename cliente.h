@@ -11,6 +11,13 @@ typedef struct transferencia Transferencia; //struct inspirado no de @flgorgonio
 typedef struct deposito Deposito; //struct inspirado no de @flgorgonio
 typedef struct saque Saque; //struct inspirado no de @flgorgonio
 typedef struct emprestimo Emprestimo; //struct inspirado no de @flgorgonio
+typedef struct emprestimo Extrato; //struct inspirado no de @flgorgonio
+
+struct extrato {
+    char tipo_movimentacao[20];
+    double valor;
+    char cpf[12];
+};
 
 struct transferencia {
 	char cpf[11];
@@ -21,7 +28,7 @@ struct transferencia {
 };
 
 struct deposito {
-    char valor[10];
+    char valor[10]; 
 };
 
 struct saque {

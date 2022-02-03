@@ -19,6 +19,7 @@ struct cliente {
     int ano;
     char celular[12];
     char endereco[256];
+    double saldo;
 };
 
 
