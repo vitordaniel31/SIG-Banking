@@ -11,23 +11,27 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "cliente.h"
+#include "administrador.h"
 #include "validators.h"
 
 typedef struct transferencia Transferencia; //struct inspirado no de @flgorgonio
 typedef struct deposito Deposito; //struct inspirado no de @flgorgonio
 typedef struct saque Saque; //struct inspirado no de @flgorgonio
 typedef struct emprestimo Emprestimo; //struct inspirado no de @flgorgonio
-
-
+typedef struct cliente Cliente; //struct inspirado no de @flgorgonio
+char* cpf_cliente;
+Cliente* cliente_logado;
 ////// Funções do Módulo do Cliente
 void moduloCliente(void) {
+    cpf_cliente = telaAdministradorPesquisaCliente();
+    cliente_logado  = administradorBuscarCliente(cpf_cliente);
     char opcao;
     do {
         opcao = telaCliente();
         switch(opcao) {
             case '1':   telaClienteExtrato();
                         break;
-            case '2':   telaClienteComprovantes();
+            case '2':   telaClienteSaldo();
                         break;
             case '3':   telaClienteSaque();
                         break;
@@ -35,9 +39,6 @@ void moduloCliente(void) {
                         break;
             case '5':   telaClienteTransferencia();
                         break;
-            case '6':   telaClienteEmprestimo();
-                        break;
-
         }       
     } while (opcao != '0');
 }
@@ -60,7 +61,7 @@ char telaCliente(void) {
     printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
     printf("///                                                                         ///\n");
     printf("///            1. Meu Extrato                                               ///\n");
-    printf("///            2. Meus Comprovantes                                         ///\n");
+    printf("///            2. Meu Saldo                                                 ///\n");
     printf("///            3. Solicitar saque                                           ///\n");
     printf("///            4. Fazer Transferência                                       ///\n");
     printf("///            5. Solicitar Empréstimo                                      ///\n");
@@ -103,9 +104,8 @@ void telaClienteExtrato(void) {
     getchar();
 }
 
-void telaClienteComprovantes(void) {
+void telaClienteSaldo(void) {
     system("clear||cls");
-    char comprovante[10];
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("///                                                                         ///\n");
@@ -120,17 +120,10 @@ void telaClienteComprovantes(void) {
     printf("///                                                                         ///\n");
     printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
     printf("///                                                                         ///\n");
-    printf("///                            LISTA DE COMPROVANTES                        ///\n");
+    printf("///                                 Meu Saldo                               ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Saque - Vitor Daniel Lócio Medeiros - R$1000,00           ///\n");
-    printf("///            2. Depósito - Maria José Lócio Linhares Medeiros - R$500,00  ///\n");
-    printf("///            3. Transferência - Jesca Gabrielly Medeiros - R$500,00       ///\n");
+    printf("///            O seu saldo é de: R$%2.f                                     ///\n", cliente_logado->saldo);
     printf("///                                                                         ///\n");
-    do{
-        printf("///      Informe o número da transação que deseja emitir comprovante: ");
-        scanf("%s", comprovante );
-        getchar();
-    }while(integer(comprovante)==0 || size(comprovante, 10, 1)==0);
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
@@ -259,43 +252,4 @@ Transferencia* telaClienteTransferencia(void) {
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
     return tra;
-}
-
-Emprestimo* telaClienteEmprestimo(void) {
-    system("clear||cls");
-    
-    Emprestimo *emp;
-    emp = (Emprestimo*) malloc(sizeof(Emprestimo));
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
-    printf("///               Departamento de Computação e Tecnologia                   ///\n");
-    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
-    printf("///               Projeto Sistema de Controle de Contas Bancárias           ///\n");
-    printf("///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                            EMPRÉSTIMO                                   ///\n");
-    printf("///                                                                         ///\n");
-    do{
-        printf("///      Digite o valor do empréstimo (apenas números): ");
-        scanf("%s", emp->valor );
-        getchar();
-    }while(integer(emp->valor)==0);
-    do{
-        printf("///      Diga o motivo da solicitação:");
-        scanf("%s", emp->motivo);
-        getchar();
-    }while(size(emp->motivo, 255, 1)==0);
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-    return emp;
 }

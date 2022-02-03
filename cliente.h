@@ -10,7 +10,6 @@
 typedef struct transferencia Transferencia; //struct inspirado no de @flgorgonio
 typedef struct deposito Deposito; //struct inspirado no de @flgorgonio
 typedef struct saque Saque; //struct inspirado no de @flgorgonio
-typedef struct emprestimo Emprestimo; //struct inspirado no de @flgorgonio
 typedef struct emprestimo Extrato; //struct inspirado no de @flgorgonio
 
 struct extrato {
@@ -35,17 +34,12 @@ struct saque {
     char valor[10];
 };
 
-struct emprestimo {
-    char valor[10];
-    char motivo[255];
-};
 
 // Assinatura das funções do módulo do cliente
 void moduloCliente(void);
 char telaCliente(void);
 void telaClienteExtrato(void);
-void telaClienteComprovantes(void);
+void telaClienteSaldo(void);
 Saque* telaClienteSaque(void);
 Deposito* telaClienteDeposito(void);
 Transferencia* telaClienteTransferencia(void);
-Emprestimo* telaClienteEmprestimo(void);
