@@ -29,7 +29,7 @@ void moduloAdministrador(void) {
                         break;
             case '3':   administradorPesquisarCliente();
                         break;
-            case '4':   telaAdministradorAtualizaCliente();
+            case '4':   administradorAtualizarCliente();
                         break;
             case '5':   telaAdministradorTransacoes();
                         break;
@@ -178,21 +178,21 @@ Cliente* telaAdministradorCadastroCliente(void) {
     //fprintf(fp,"%s \n", cli->email);
 
     do{
-        printf("///           Data de Nascimento (dd mm aaaa): ");
+        printf("///            Data de Nascimento (dd mm aaaa): ");
         scanf("%d %d %d", &cli->dia, &cli->mes, &cli->ano);
         getchar();
     }while(date(cli->dia, cli->mes, cli->ano)==0);
     //fprintf(fp,"%d/%d/%d \n", cli->dia, cli->mes, cli->ano);
 
     do{
-        printf("///           Celular  (apenas números): ");
+        printf("///            Celular  (apenas números): ");
         scanf("%[0-9]", cli->celular);
         getchar();
     }while(cell(cli->celular)==0 || size(cli->celular, 11, 1)==0);
     //fprintf(fp,"%s \n", cli->celular);
     
     do{
-        printf("///           Endereço (sem acento): ");
+        printf("///            Endereço (sem acento): ");
         scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃ a-záéíóúâêôçàãõ 0-9]", cli->endereco);
         getchar();
     }while(size(cli->endereco, 255, 1)==0);
@@ -251,10 +251,8 @@ char* telaAdministradorPesquisaCliente(void) {
     printf("///                                                                         ///\n");
     printf("///       = = = = = = = = = = Pesquisa de Cliente = = = = = = = = = =       ///\n");
     printf("///                                                                         ///\n");
-    printf("///             #Digite 0 para voltar ao menu anterior#                     ///\n");
-    printf("///                                                                         ///\n");
     printf("///           Informe o CPF (apenas números) do cliente: ");
-    scanf("%s", cpf );
+    scanf("%[0-9]", cpf );
     getchar();
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -316,6 +314,105 @@ void telaAdministradorExibeCliente(Cliente* cli) {
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
+}
+
+
+//funções para atualizar um cliente
+void administradorAtualizarCliente(void) {
+    Cliente* cli;
+    char* cpf;
+    char* conta;
+
+    cpf = telaAdministradorPesquisaCliente();
+    cli = administradorBuscarCliente(cpf);
+    conta = cli->conta;
+    if (cli == NULL) {
+        telaAdministradorExibeCliente(cli); //para mostrar que o cliente não existe
+    } else {
+          cli = telaAdministradorAtualizarCliente();
+          strcpy(cli->cpf, cpf); //não deixa alterar o cpf
+          strcpy(cli->conta, conta); //não deixa alterar a conta
+          administradorRegravarCliente(cli);
+          free(cli);
+    }
+    free(cpf);
+}
+
+Cliente* telaAdministradorAtualizarCliente(void) {
+    system("clear||cls");
+    Cliente *cli;
+    cli = (Cliente*) malloc(sizeof(Cliente));
+
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///               Projeto Sistema de Controle de Contas Bancárias           ///\n");
+    printf("///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = = = = = = = = Atualizar Cliente = = = = = = = = = = =       ///\n");
+    do{
+        printf("///            Nome completo (sem acento): ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃ a-záéíóúâêôçàãõ 0-9]", cli->nome);
+        getchar();
+    }while(letras(cli->nome)==0 || size(cli->nome, 255, 1)==0);
+    //fprintf(fp,"%s \n", cli->nome);
+
+    do{
+        printf("///            Data de Nascimento (dd mm aaaa): ");
+        scanf("%d %d %d", &cli->dia, &cli->mes, &cli->ano);
+        getchar();
+    }while(date(cli->dia, cli->mes, cli->ano)==0);
+    //fprintf(fp,"%d/%d/%d \n", cli->dia, cli->mes, cli->ano);
+
+    do{
+        printf("///            Celular  (apenas números): ");
+        scanf("%[0-9]", cli->celular);
+        getchar();
+    }while(cell(cli->celular)==0 || size(cli->celular, 11, 1)==0);
+    //fprintf(fp,"%s \n", cli->celular);
+    
+    do{
+        printf("///            Endereço (sem acento): ");
+        scanf("%[A-ZÁÉÍÓÚÂÊÔÇÀÃ a-záéíóúâêôçàãõ 0-9]", cli->endereco);
+        getchar();
+    }while(size(cli->endereco, 255, 1)==0);
+    //fprintf(fp,"%s \n", cli->endereco);
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+    return cli;
+}
+
+void administradorRegravarCliente(Cliente* cli) { //ESSA FUNÇÃO FOI INSPIRADA NO GITHUB DE @flgorgonio
+    FILE* fp;
+    Cliente* clientes;
+
+    clientes = (Cliente*) malloc(sizeof(Cliente));
+    fp = fopen("clientes.dat", "rb");
+    if (fp == NULL) {
+        printf("Erro! O sistema não  conseguiu encontrar o arquivo de dados dos clientes\n!"); //criar tela de erro
+        exit(1);
+    }
+    while(fread(clientes, sizeof(Cliente), 1, fp)) {
+        if (strcmp(clientes->cpf, cli->cpf) == 0) {
+            fseek(fp, -1*sizeof(Cliente), SEEK_CUR);
+            fwrite(cli, sizeof(Cliente), 1, fp);
+            fclose(fp);       
+        }
+    }
+    fclose(fp);
+    free(clientes);
 }
 
 void telaAdministradorAtualizaCliente(void) {

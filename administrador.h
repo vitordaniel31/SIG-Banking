@@ -38,6 +38,11 @@ char* telaAdministradorPesquisaCliente(void);
 Cliente* administradorBuscarCliente(char*);
 void telaAdministradorExibeCliente(Cliente*);
 
+//funções para atualizar um cliente
+void administradorAtualizarCliente(void);
+Cliente* telaAdministradorAtualizarCliente(void);
+void administradorRegravarCliente(Cliente*);
+
 
 void telaAdministradorAtualizaCliente(void);
 void telaAdministradorTransacoes(void);
