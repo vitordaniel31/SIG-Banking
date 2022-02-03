@@ -171,13 +171,6 @@ Cliente* telaAdministradorCadastroCliente(void) {
     }while(cpfVerify(cli->cpf)==0);
     //fprintf(fp,"%s \n", cli->cpf);
 
-    /*do{
-        printf("///           E-mail: ");
-        scanf("%[a-z0-9@.]", cli->email);
-        getchar();
-    }while(emailVerify(cli->email)==0 || size(cli->email, 255, 1)==0);*/
-    //fprintf(fp,"%s \n", cli->email);
-
     do{
         printf("///            Data de Nascimento (dd mm aaaa): ");
         scanf("%d %d %d", &cli->dia, &cli->mes, &cli->ano);
@@ -309,7 +302,7 @@ void telaAdministradorExibeCliente(Cliente* cli) {
         printf("///           Celular: %s \n", cli->celular);
         printf("///           Endereço: %s \n", cli->endereco);
         printf("///                                                                         ///\n");
-        printf("///           Saldo: R$%2.f \n", cli->saldo);
+        printf("///           Saldo: R$%d \n", cli->saldo);
     }
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");

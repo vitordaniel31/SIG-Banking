@@ -10,11 +10,11 @@
 typedef struct transferencia Transferencia; //struct inspirado no de @flgorgonio
 typedef struct deposito Deposito; //struct inspirado no de @flgorgonio
 typedef struct saque Saque; //struct inspirado no de @flgorgonio
-typedef struct emprestimo Extrato; //struct inspirado no de @flgorgonio
+typedef struct extrato Extrato; //struct inspirado no de @flgorgonio
 
 struct extrato {
     char tipo_movimentacao[20];
-    double valor;
+    int valor;
     char cpf[12];
 };
 
@@ -41,5 +41,9 @@ char telaCliente(void);
 void telaClienteExtrato(void);
 void telaClienteSaldo(void);
 Saque* telaClienteSaque(void);
-Deposito* telaClienteDeposito(void);
 Transferencia* telaClienteTransferencia(void);
+
+//funções para cadastrar um cliente
+void clienteDeposito(void);
+Extrato* telaClienteDeposito(void);
+void clienteSalvarExtrato(Extrato*);

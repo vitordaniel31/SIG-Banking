@@ -14,13 +14,12 @@
 #include "administrador.h"
 #include "validators.h"
 
-typedef struct transferencia Transferencia; //struct inspirado no de @flgorgonio
-typedef struct deposito Deposito; //struct inspirado no de @flgorgonio
-typedef struct saque Saque; //struct inspirado no de @flgorgonio
-typedef struct emprestimo Emprestimo; //struct inspirado no de @flgorgonio
+typedef struct extrato Extrato; //struct inspirado no de @flgorgonio
 typedef struct cliente Cliente; //struct inspirado no de @flgorgonio
+
 char* cpf_cliente;
 Cliente* cliente_logado;
+
 ////// Funções do Módulo do Cliente
 void moduloCliente(void) {
     cpf_cliente = telaAdministradorPesquisaCliente();
@@ -35,7 +34,7 @@ void moduloCliente(void) {
                         break;
             case '3':   telaClienteSaque();
                         break;
-            case '4':   telaClienteDeposito();
+            case '4':   clienteDeposito();
                         break;
             case '5':   telaClienteTransferencia();
                         break;
@@ -63,8 +62,8 @@ char telaCliente(void) {
     printf("///            1. Meu Extrato                                               ///\n");
     printf("///            2. Meu Saldo                                                 ///\n");
     printf("///            3. Solicitar saque                                           ///\n");
-    printf("///            4. Fazer Transferência                                       ///\n");
-    printf("///            5. Solicitar Empréstimo                                      ///\n");
+    printf("///            4. Fazer Depósito                                            ///\n");
+    printf("///            5. Fazer Transferência                                       ///\n");
     printf("///            0. Voltar ao menu anterior                                   ///\n");
     printf("///                                                                         ///\n");
     printf("///            Escolha a opção desejada: ");                                
@@ -122,12 +121,82 @@ void telaClienteSaldo(void) {
     printf("///                                                                         ///\n");
     printf("///                                 Meu Saldo                               ///\n");
     printf("///                                                                         ///\n");
-    printf("///            O seu saldo é de: R$%2.f                                     ///\n", cliente_logado->saldo);
+    printf("///            O seu saldo é de: R$ %d                                     ///\n", cliente_logado->saldo);
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
+}
+
+//funções para fazer um deposito
+void clienteDeposito(void) {
+    Extrato *deposito;
+    Cliente* cliente;
+
+    deposito = telaClienteDeposito();
+    clienteSalvarExtrato(deposito);
+    cliente = administradorBuscarCliente(deposito->cpf);
+    cliente->saldo = deposito->valor + cliente->saldo;
+    administradorRegravarCliente(cliente);
+    free(deposito);
+}
+
+Extrato* telaClienteDeposito(void) {
+    system("clear||cls");
+    Extrato *deposito;
+    deposito = (Extrato*) malloc(sizeof(Extrato));
+
+    Cliente* titular;
+
+    sprintf(deposito->tipo_movimentacao, "%s", "Depósito");
+
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///               Projeto Sistema de Controle de Contas Bancárias           ///\n");
+    printf("///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = = = = = = = = = = = Depósito  = = = = = = = = = = = =       ///\n");
+    do{
+        printf("///            CPF (apenas números) do titular da conta: ");
+        scanf("%[0-9]", deposito->cpf);
+        getchar();  
+    }while(cpfExtrato(deposito->cpf)==0);
+    titular = administradorBuscarCliente(deposito->cpf);
+    printf("///            Titular: %s \n", titular->nome);
+    do{
+        printf("///            Valor do depósito (apenas inteiros): ");
+        scanf("%d", &deposito->valor);
+        getchar();     
+    }while(deposito->valor<=0);
+    printf("///                                                                         ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+    return deposito;
+}
+
+void clienteSalvarExtrato(Extrato* extrato) { 
+    FILE* fp;
+
+    fp = fopen("extratos.dat", "ab");
+    if (fp == NULL) {
+        printf("Erro! O sistema não  conseguiu encontrar o arquivo de dados dos extatos\n!"); //criar tela de erro
+        exit(1);
+    }
+    fwrite(extrato, sizeof(Extrato), 1, fp);
+    fclose(fp);
 }
 
 Saque* telaClienteSaque(void) {
@@ -162,40 +231,6 @@ Saque* telaClienteSaque(void) {
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
     return saq;
-}
-
-Deposito* telaClienteDeposito(void) {
-    system("clear||cls");
-    
-    Deposito *dep;
-    dep = (Deposito*) malloc(sizeof(Deposito));
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
-    printf("///               Departamento de Computação e Tecnologia                   ///\n");
-    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
-    printf("///               Projeto Sistema de Controle de Contas Bancárias           ///\n");
-    printf("///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                                DEPÓSITO                                 ///\n");
-    printf("///                                                                         ///\n");
-    do{
-        printf("///      Digite o valo do depósito (apenas números): ");
-        scanf("%s", dep->valor );
-        getchar();
-    }while(integer(dep->valor)==0 || size(dep->valor, 10, 1)==0);
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-    return dep;
 }
 
 

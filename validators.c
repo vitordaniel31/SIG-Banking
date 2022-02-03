@@ -68,6 +68,23 @@ int cpfVerify(char entrada[]) { //verifica se o cpf digitado tem 11 digitos
     return 1;
 }
 
+int cpfExtrato(char entrada[]) { //verifica se o cpf digitado tem 11 digitos
+    FILE* fp;
+    Cliente* cliente;
+
+    cliente = (Cliente*) malloc(sizeof(Cliente));
+    fp = fopen("clientes.dat", "rb");
+    while(fread(cliente, sizeof(Cliente), 1, fp)) {
+        if ((strcmp(cliente->cpf, entrada) == 0)) {
+            fclose(fp);
+            return 1;
+        }
+    }
+    free(cliente);
+    printf("///              ESSE CPF NÃO ESTÁ REGISTRADO A UMA CONTA                   ///\n");
+    return 0;
+}
+
 int date(int dia, int mes, int ano){
     int validateDay = 0;
     if((mes==1 || mes==3 || mes==5 || mes==7 || mes==8 || mes==10 || mes==12) && (dia>0 && dia<=31)) validateDay = 1;

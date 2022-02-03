@@ -11,6 +11,7 @@
 int integer(char[]);
 int letras(char[]);
 int cpfVerify(char[]);
+int cpfExtrato(char[]);
 int date(int, int, int);
 int cell(char[]);
 //int emailVerify(char[]);

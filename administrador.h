@@ -19,7 +19,7 @@ struct cliente {
     int ano;
     char celular[12];
     char endereco[256];
-    double saldo;
+    int saldo;
 };
 
 
@@ -28,7 +28,7 @@ void moduloAdministrador(void);
 char telaAdministrador(void);
 void telaAdministradorClientes(void);
 
-//funções para cadastrasr um cliente
+//funções para cadastrar um cliente
 void administradorCadastrarCliente(void);
 Cliente* telaAdministradorCadastroCliente(void);
 void administradorSalvarCliente(Cliente*);
