@@ -37,7 +37,7 @@ void moduloCliente(void) {
                         break;
             case '4':   clienteDeposito();
                         break;
-            case '5':   clienteDeposito();
+            case '5':   clienteTransferencia();
                         break;
         }       
     } while (opcao != '0');
@@ -170,6 +170,7 @@ void clienteDeposito(void) {
     administradorRegravarCliente(cliente);
     free(deposito);
     free(cliente);
+    cliente_logado  = administradorBuscarCliente(cpf_cliente);
 }
 
 Extrato* telaClienteDeposito(void) {
@@ -212,6 +213,7 @@ Extrato* telaClienteDeposito(void) {
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
+    free(titular);
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
     return deposito;
@@ -226,6 +228,7 @@ void clienteSaque(void) {
     cliente_logado->saldo = cliente_logado->saldo + saque->valor;
     administradorRegravarCliente(cliente_logado);
     free(saque);
+    cliente_logado  = administradorBuscarCliente(cpf_cliente);
 }
 
 Extrato* telaClienteSaque(void) {
@@ -269,4 +272,87 @@ Extrato* telaClienteSaque(void) {
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
     return saque;
+}
+
+//funções para fazer um transferencia
+void clienteTransferencia(void) {
+    Extrato *transferencia;
+    Cliente *cliente;
+
+    transferencia = telaClienteTransferencia();
+    int valor = transferencia->valor *(-1);
+    clienteSalvarExtrato(transferencia);
+    cliente = administradorBuscarCliente(transferencia->cpf);
+    cliente->saldo = transferencia->valor + cliente->saldo;
+    administradorRegravarCliente(cliente);
+    free(cliente);
+
+    Extrato *recebida;
+    recebida = (Extrato*) malloc(sizeof(Extrato));
+
+    sprintf(recebida->tipo_movimentacao, "%s", "Envio");
+    sprintf(recebida->cpf, "%s", cpf_cliente);
+    recebida->valor = valor;
+    clienteSalvarExtrato(recebida);
+    cliente_logado->saldo = cliente_logado->saldo + recebida->valor;
+    administradorRegravarCliente(cliente_logado);
+
+    free(transferencia);
+    free(recebida);
+
+    cliente_logado  = administradorBuscarCliente(cpf_cliente);
+}
+
+Extrato* telaClienteTransferencia(void) {
+    system("clear||cls");
+    Extrato *transferencia;
+    transferencia = (Extrato*) malloc(sizeof(Extrato));
+
+    Cliente* titular;
+
+    sprintf(transferencia->tipo_movimentacao, "%s", "Recebimento");
+
+    printf("\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
+    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
+    printf("///               Departamento de Computação e Tecnologia                   ///\n");
+    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
+    printf("///               Projeto Sistema de Controle de Contas Bancárias           ///\n");
+    printf("///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///\n");
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
+    printf("///                                                                         ///\n");
+    printf("///       = = = = = = = = = = = Transferência = = = = = = = = = = = =       ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            O seu saldo é de: R$ %d \n", cliente_logado->saldo);
+    printf("///                                                                         ///\n");
+    do{
+        printf("///            CPF (apenas números) do titular da conta: ");
+        scanf("%[0-9]", transferencia->cpf);
+        getchar();
+        if ((strcmp(transferencia->cpf, cpf_cliente) == 0)){
+            printf("///                 VOCÊ NÃO PODE TRANSFERIR PARA SI MESMO                  ///\n");
+        }  
+    }while(cpfExtrato(transferencia->cpf)==0 || strcmp(transferencia->cpf, cpf_cliente) == 0);
+    titular = administradorBuscarCliente(transferencia->cpf);
+    printf("///            Titular: %s \n", titular->nome);
+    do{
+        printf("///            Valor da transferência (apenas inteiros): ");
+        scanf("%d", &transferencia->valor);
+        getchar();
+        if(transferencia->valor > cliente_logado->saldo){
+            printf("///            O VALOR DA TRANSFERÊNCIA É MAIOR DO QUE SEU SALDO            ///\n");
+        }     
+    }while(transferencia->valor<=0 || transferencia->valor > cliente_logado->saldo);
+    printf("///                                                                         ///\n");
+    printf("///////////////////////////////////////////////////////////////////////////////\n");
+    printf("\n");
+    free(titular);
+    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+    return transferencia;
 }

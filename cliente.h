@@ -32,3 +32,7 @@ Extrato* telaClienteDeposito(void);
 //funções para fazer saque
 void clienteSaque(void);
 Extrato* telaClienteSaque(void);
+
+//funções para fazer transferencia
+void clienteTransferencia(void);
+Extrato* telaClienteTransferencia(void);
