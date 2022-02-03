@@ -33,11 +33,11 @@ void moduloCliente(void) {
                         break;
             case '2':   telaClienteSaldo();
                         break;
-            case '3':   telaClienteSaque();
+            case '3':   clienteSaque();
                         break;
             case '4':   clienteDeposito();
                         break;
-            case '5':   telaClienteTransferencia();
+            case '5':   clienteDeposito();
                         break;
         }       
     } while (opcao != '0');
@@ -113,6 +113,7 @@ void telaClienteExtrato(void) {
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     fclose(fp);
+    free(extrato);
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
@@ -135,12 +136,26 @@ void telaClienteSaldo(void) {
     printf("///                                                                         ///\n");
     printf("///                                 Meu Saldo                               ///\n");
     printf("///                                                                         ///\n");
-    printf("///            O seu saldo é de: R$ %d                                     ///\n", cliente_logado->saldo);
+    printf("///            O seu saldo é de: R$ %d \n", cliente_logado->saldo);
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
+}
+
+//funções para extrato
+void clienteSalvarExtrato(Extrato* extrato) { 
+    FILE* fp;
+
+    fp = fopen("extratos.dat", "ab");
+    if (fp == NULL) {
+        printf("Erro! O sistema não  conseguiu encontrar o arquivo de dados dos extratos\n!"); //criar tela de erro
+        exit(1);
+    }
+    fwrite(extrato, sizeof(Extrato), 1, fp);
+    fclose(fp);
+    free(extrato);
 }
 
 //funções para fazer um deposito
@@ -154,6 +169,7 @@ void clienteDeposito(void) {
     cliente->saldo = deposito->valor + cliente->saldo;
     administradorRegravarCliente(cliente);
     free(deposito);
+    free(cliente);
 }
 
 Extrato* telaClienteDeposito(void) {
@@ -201,23 +217,24 @@ Extrato* telaClienteDeposito(void) {
     return deposito;
 }
 
-void clienteSalvarExtrato(Extrato* extrato) { 
-    FILE* fp;
+//funções para fazer um saque
+void clienteSaque(void) {
+    Extrato *saque;
 
-    fp = fopen("extratos.dat", "ab");
-    if (fp == NULL) {
-        printf("Erro! O sistema não  conseguiu encontrar o arquivo de dados dos extratos\n!"); //criar tela de erro
-        exit(1);
-    }
-    fwrite(extrato, sizeof(Extrato), 1, fp);
-    fclose(fp);
+    saque = telaClienteSaque();
+    clienteSalvarExtrato(saque);
+    cliente_logado->saldo = cliente_logado->saldo + saque->valor;
+    administradorRegravarCliente(cliente_logado);
+    free(saque);
 }
 
-Saque* telaClienteSaque(void) {
+Extrato* telaClienteSaque(void) {
     system("clear||cls");
+    Extrato *saque;
+    saque = (Extrato*) malloc(sizeof(Extrato));
 
-    Saque *saq;
-    saq = (Saque*) malloc(sizeof(Saque));
+    sprintf(saque->tipo_movimentacao, "%s", "Saque");
+    sprintf(saque->cpf, "%s", cpf_cliente);
 
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -233,72 +250,23 @@ Saque* telaClienteSaque(void) {
     printf("///                                                                         ///\n");
     printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
     printf("///                                                                         ///\n");
-    printf("///                                 SAQUE                                   ///\n");
+    printf("///       = = = = = = = = = = = = = Saque = = = = = = = = = = = = = =       ///\n");
+    printf("///                                                                         ///\n");
+    printf("///            O seu saldo é de: R$ %d \n", cliente_logado->saldo);
     printf("///                                                                         ///\n");
     do{
-        printf("///      Digite o valo do saque (apenas números): ");
-        scanf("%s", saq->valor );
+        printf("///            Valor do saque (apenas inteiros): ");
+        scanf("%d", &saque->valor);
         getchar();
-    }while(integer(saq->valor)==0 || size(saq->valor, 10, 1)==0);
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("\n");
-    printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
-    getchar();
-    return saq;
-}
-
-
-Transferencia* telaClienteTransferencia(void) {
-    system("clear||cls");
-    
-    Transferencia *tra;
-    tra = (Transferencia*) malloc(sizeof(Transferencia));
-
-    printf("\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///             Universidade Federal do Rio Grande do Norte                 ///\n");
-    printf("///                 Centro de Ensino Superior do Seridó                     ///\n");
-    printf("///               Departamento de Computação e Tecnologia                   ///\n");
-    printf("///                  Disciplina DCT1106 -- Programação                      ///\n");
-    printf("///               Projeto Sistema de Controle de Contas Bancárias           ///\n");
-    printf("///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///\n");
-    printf("///                                                                         ///\n");
-    printf("///////////////////////////////////////////////////////////////////////////////\n");
-    printf("///                                                                         ///\n");
-    printf("///       = = = = = Sistema de Controle de Contas Bancárias = = = = =       ///\n");
-    printf("///                                                                         ///\n");
-    printf("///                             TRANSFERÊNCIA BANCÁRIA                      ///\n");
-    printf("///                                                                         ///\n");
-    do{
-        printf("///           CPF (apenas números): ");
-        scanf("%s", tra->cpf );
-        getchar();  
-    }while(cpfVerify(tra->cpf)==0);
-    do{
-        printf("///           Agência (apenas números): ");
-        scanf("%s", tra->agencia );
-        getchar();
-    }while(integer(tra->agencia)==0);
-    do{
-        printf("///           Conta com dígito (apenas números): ");
-        scanf("%s", tra->conta );
-        getchar();
-    }while(integer(tra->conta)==0);
-    do{
-        printf("///           Tipo da Conta (1-Corrente, 2-Poupança): ");
-        scanf("%c", tra->tipo );
-        getchar();
-    }while(integer(tra->tipo)==0);
-    do{
-        printf("///      Digite o valor da transferêcia (apenas números): ");
-        scanf("%s", tra->valor );
-        getchar();
-    }while(integer(tra->valor)==0);
+        if(saque->valor > cliente_logado->saldo){
+            printf("///            O VALOR DO SAQUE É MAIOR DO QUE SEU SALDO                    ///\n");
+        }     
+    }while(saque->valor<=0 || saque->valor > cliente_logado->saldo);
+    saque->valor = saque->valor * (-1);
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
     printf("\t\t\t>>> Tecle <ENTER> para continuar...\n");
     getchar();
-    return tra;
+    return saque;
 }

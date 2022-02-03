@@ -7,10 +7,8 @@
 ///     Copyright © 2021 Vitor Daniel - Todos os direitos reservados        ///
 ///////////////////////////////////////////////////////////////////////////////
 
-typedef struct transferencia Transferencia; //struct inspirado no de @flgorgonio
-typedef struct deposito Deposito; //struct inspirado no de @flgorgonio
-typedef struct saque Saque; //struct inspirado no de @flgorgonio
 typedef struct extrato Extrato; //struct inspirado no de @flgorgonio
+
 
 struct extrato {
     char tipo_movimentacao[20];
@@ -18,32 +16,19 @@ struct extrato {
     char cpf[12];
 };
 
-struct transferencia {
-	char cpf[11];
-    char agencia[5];
-    char conta[20];
-    char tipo[1];
-    char valor[10];
-};
-
-struct deposito {
-    char valor[10]; 
-};
-
-struct saque {
-    char valor[10];
-};
-
-
 // Assinatura das funções do módulo do cliente
 void moduloCliente(void);
 char telaCliente(void);
 void telaClienteExtrato(void);
 void telaClienteSaldo(void);
-Saque* telaClienteSaque(void);
-Transferencia* telaClienteTransferencia(void);
 
-//funções para cadastrar um cliente
+//funções para extrato
+void clienteSalvarExtrato(Extrato*);
+
+//funções para fazer depósito
 void clienteDeposito(void);
 Extrato* telaClienteDeposito(void);
-void clienteSalvarExtrato(Extrato*);
+
+//funções para fazer saque
+void clienteSaque(void);
+Extrato* telaClienteSaque(void);
