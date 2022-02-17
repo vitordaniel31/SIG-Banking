@@ -20,6 +20,8 @@ struct cliente {
     char celular[12];
     char endereco[256];
     int saldo;
+    struct cliente *prox;
+
 };
 
 
