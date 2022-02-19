@@ -46,6 +46,9 @@ int cpfVerify(char entrada[]) { //verifica se o cpf digitado tem 11 digitos
 
     cliente = (Cliente*) malloc(sizeof(Cliente));
     fp = fopen("clientes.dat", "rb");
+    if (fp == NULL) {
+        return 1;
+    }
     while(fread(cliente, sizeof(Cliente), 1, fp)) {
         if ((strcmp(cliente->cpf, entrada) == 0)) {
             printf("///                 JÁ EXISTE UM CLIENTE COM ESSE CPF                       ///\n");

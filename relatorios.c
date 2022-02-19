@@ -25,11 +25,9 @@ void moduloRelatorios(void) {
         switch(opcao) {
             case '1':   clientesOrdemAlfabetica(&lista);
                         telaClientesOrdemAlfabetica(lista);
-                        free(lista);
                         break;
             case '2':   clientesOrdemAlfabeticaDecrescente(&lista);
                         telaClientesOrdemAlfabeticaDecrescente(lista);
-                        free(lista);
                         break;
         }
     } while (opcao != '0');

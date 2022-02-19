@@ -12,6 +12,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "administrador.h"
+#include "cliente.h"
 #include "validators.h"
 
 typedef struct cliente Cliente; //struct inspirado no de @flgorgonio
@@ -445,6 +446,16 @@ void telaAdministradorAtualizaCliente(void) {
 }
 
 void telaAdministradorTransacoes(void) {
+    FILE* fp;
+    Extrato* ex;
+
+    ex = (Extrato*) malloc(sizeof(Extrato));
+    fp = fopen("extratos.dat", "rb");
+    if (fp == NULL) {
+        printf("Erro! O sistema não  conseguiu encontrar o arquivo de dados dos clientes\n!"); //criar tela de erro
+        exit(1);
+    }
+    int count = 0;
     system("clear||cls");
     printf("\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
@@ -462,10 +473,11 @@ void telaAdministradorTransacoes(void) {
     printf("///                                                                         ///\n");
     printf("///                            LISTA DE TRANSAÇÕES                          ///\n");
     printf("///                                                                         ///\n");
-    printf("///            1. Saque - Vitor Daniel Lócio Medeiros - R$1000,00           ///\n");
-    printf("///            2. Depósito - Maria José Lócio Linhares Medeiros - R$500,00  ///\n");
-    printf("///            3. Solicitação de Empréstimo - Jesca Gabrielly Medeiros      ///\n");
-    printf("///            - R$10000                                                    ///\n");
+    while(fread(ex, sizeof(Extrato), 1, fp)) {
+        count = count +1;
+        printf("///       %d. %s - %s - R$%d\n", count, ex->tipo_movimentacao, ex->cpf, ex->valor);
+        
+    }
     printf("///                                                                         ///\n");
     printf("///////////////////////////////////////////////////////////////////////////////\n");
     printf("\n");
